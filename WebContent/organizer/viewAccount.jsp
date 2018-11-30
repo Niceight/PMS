@@ -15,8 +15,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Paparan Profil</title>
+	<meta charset="ISO-8859-1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Paparan Profil</title>
+	<link rel="stylesheet" href="/PMS/css/bulma.min.css" />
 </head>
 <body>
 
@@ -24,30 +26,124 @@
 	String name = (String)session.getAttribute("currentSessionOrganizerName");
 	String id = (String)session.getAttribute("currentSessionOrganizerID");
 %>
-<header>
-	<ul>
-	   <li><a href="/PMS/organizer/index.jsp">Anjung</a></li>
-	   <li><a href="/PMS/ProgramController?action=insert">Daftar Program</a></li>
-	   <li><a href="/PMS/ProgramController?action=myProgram&orgID=<c:out value="<%=id%>"/>">MyProgram</a></li> 
-	   <li class='active'><a href="/PMS/OrganizerController?action=viewAccount&orgEmail=<c:out value="<%=email%>"/>">Profil</a></li>
-	   <li><a href="/PMS/organizer/logout.jsp">Log Keluar</a></li>
-	</ul>
-</header>
+	<nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+		<div class="container">
+			<div class="navbar-brand" >
+				<a class="navbar-item" href="/PMS/organizer/index.jsp">
+					<img alt="" src="/PMS/img/logo/logo-pms.png">
+				</a>
+				<a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+			      <span aria-hidden="true"></span>
+			      <span aria-hidden="true"></span>
+			      <span aria-hidden="true"></span>
+	    		</a>
+			</div>
+			<div id="navbarBasicExample" class="navbar-menu">
+				<div class="navbar-end">
+					<div class="navbar-item">
+						<div class="buttons">
+							<a class="button is-light is-rounded" href="/PMS/organizer/logout.jsp">Log Keluar</a>
+						</div>
+					</div>		
+				</div>
+			</div>
+		</div>
+	</nav>
+	<section class="hero is-light is-fullheight-with-navbar">
+		<div class="container">
+			<div class="hero-body">
+			    <div class="columns">
+					<div class="column is-3 ">
+						<div class="box">
+							<aside class="menu is-mobile">
+			                    <p class="menu-label">
+			                        Umum
+			                    </p>
+			                    <ul class="menu-list">
+			                        <li><a class="" href="/PMS/organizer/index.jsp">Laman Utama</a></li>
+			                        <li><a>Profil</a>
+				                        <ul>
+				                        	<li><a class="is-active has-text-white" href="/PMS/OrganizerController?action=viewAccount&orgEmail=<c:out value="<%=email%>"/>">Profil Anda</a></li>
+				                        	<li><a href="/PMS/OrganizerController?action=updateAccount&orgEmail=<c:out value="<%=email%>" />">Pinda Profil</a></li>
+				                        </ul>
+			                        </li>
+			                    </ul>
+			                    <p class="menu-label">
+			                        Program
+			                    </p>
+			                    <ul class="menu-list">
+			                        <li><a class="" href="/PMS/ProgramController?action=insert">Daftar Program</a></li>
+			                        <li><a class="" href="/PMS/ProgramController?action=myProgram&orgID=<c:out value="<%=id%>"/>">MyProgram</a>	</li>
+			                    </ul>
+			                </aside>
+						</div>
 
-<p>Profil <b><c:out value="<%=name%>" /></b></p>
-<br/><h1>Profil</h1> 
-<br/><br/>
+					</div><!-- end column is-3 -->
+					<div class="column is-7">
+						 <section class="hero is-white">
+		                    <div class="hero-body">
+		                        <div class="container">
+		                            <h1 class="title has-text-dark">
+		                                Profil <%= name %>.
+		                            </h1>
+		                            
+		                            <label class="label">Nama</label>
+		                            <p class="content is-medium"><c:out value="${organizer.getOrgName()}" /></p>
+		                            
+		                            <label class="label">E-mel</label>
+		                            <p class="content is-medium"><c:out value="<%=email%>" /></p>
+		                            
+		                            <label class="label">Kad Pengenalan</label>
+		                            <p class="content is-medium"><c:out value="${organizer.orgIC}" /></p>
+		                            
+		                            <label class="label">Telefon 1</label>
+		                            <p class="content is-medium"><c:out value="${organizer.orgPhone1}" /></p>
+		                            
+									<label class="label">Telefon 2</label>
+		                            <p class="content is-medium"><c:out value="${organizer.orgPhone2}" /></p>
+		                            
+		                            <label class="label">Jenis Organisasi</label>
+		                            <p class="content is-medium"><c:out value="${organizer.typeOrganization}" /></p>
+		                            
+		                            <label class="label">Nama Organisasi</label>
+		                            <p class="content is-medium"><c:out value="${organizer.organization}" /></p>
+		                           
+		                           <a class="button is-info is-medium is-rounded" href="OrganizerController?action=updateAccount&orgEmail=<c:out value="<%=email%>" />">Pinda Profil</a>
+		                        </div>
+		                    </div>
+		                </section>
+					</div><!-- end column is-9 -->
+				</div><!-- end columns -->
+			</div><!-- end hero-body -->
+		</div><!-- end container -->
+	</section>
+	<script type="text/javascript">
+	document.addEventListener('DOMContentLoaded', () => {
 
-<!-- START DISPLAY ACCOUNT -->
-<p><b>Nama:</b> <c:out value="${organizer.getOrgName()}" /></p>
-<p><b>E-mel:</b> <c:out value="<%=email%>" /></p>
-<p><b>Kad Pengenalan:</b> <c:out value="${organizer.orgIC}" /></p>
-<p><b>Telefon 1:</b> <c:out value="${organizer.orgPhone1}" /></p>
-<p><b>Telefon 2:</b> <c:out value="${organizer.orgPhone2}" /></p>
-<p><b>Jenis Organisasi:</b> <c:out value="${organizer.typeOrganization}" /></p>
-<p><b>Nama Organisasi:</b> <c:out value="${organizer.organization}" /></p>
+		  // Get all "navbar-burger" elements
+		  const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
 
-   <br/><br/>
-   <p><a href="OrganizerController?action=updateAccount&orgEmail=<c:out value="<%=email%>" />"><b>Pinda Profil</b></a></p>
+		  // Check if there are any navbar burgers
+		  if ($navbarBurgers.length > 0) {
+
+		    // Add a click event on each of them
+		    $navbarBurgers.forEach( el => {
+		      el.addEventListener('click', () => {
+
+		        // Get the target from the "data-target" attribute
+		        const target = el.dataset.target;
+		        const $target = document.getElementById(target);
+
+		        // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+		        el.classList.toggle('is-active');
+		        $target.classList.toggle('is-active');
+
+		      });
+		    });
+		  }
+
+		});
+	</script>
+   
 </body>
 </html>
