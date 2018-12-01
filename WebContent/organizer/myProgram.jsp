@@ -18,6 +18,26 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Anjung Pengguna</title>
 	<link rel="stylesheet" href="/PMS/css/bulma.min.css" />
+	<style>
+		/* Style the tab content */
+		.tabcontent {
+		    display: none;
+		    padding: 6px 12px;
+		    -webkit-animation: fadeEffect 1s;
+		    animation: fadeEffect 1s;
+		}
+		
+		/* Fade in tabs */
+		@-webkit-keyframes fadeEffect {
+		    from {opacity: 0;}
+		    to {opacity: 1;}
+		}
+		
+		@keyframes fadeEffect {
+		    from {opacity: 0;}
+		    to {opacity: 1;}
+		}
+	</style>
 	
 </head>
 <body>
@@ -87,20 +107,71 @@
 					<div class="column is-7">
 						 <section class="hero is-white">
 		                    <div class="hero-body">
-		                        <div class="container">
-									<table class="table is-hoverable is-fullwidth">
-									      <tr>
-									      	<th>Bil.</th>
-									        <th>Nama Program</th>
+		                        <div class="container is-widescreen">
+		                        	<div class="tabs is-toggle is-toggle-rounded is-fullwidth">
+									    <ul>
+									    	<li class="tablinks" onclick="openProgram(event, 'Diproses')"><a>Diproses</a></li>
+										    <li class="tablinks" onclick="openProgram(event, 'Lulus')"><a>Lulus</a></li>
+										    <li class="tablinks" onclick="openProgram(event, 'Gagal')"><a>Gagal</a></li>
+									    </ul>
+									</div>
+								    <div id="Diproses" class="tabcontent">
+								      <table class="table is-hoverable is-fullwidth">
+								      	<thead>
+								      		<tr>
+										      	<th>Bil.</th>
+										        <th>Nama Program</th>
 									      </tr>
-									  <c:forEach items="${programs}" var="program" varStatus="theCount">
+								      	</thead>
+									  <c:forEach items="${programsDiproses}" var="program" varStatus="theCount">
+									  	<tbody>
 									  		<tr>
-									  			<td><c:out value="${theCount.count}" /></td>
-									  			 <td><a href="ProgramController?action=viewProgram&progID=<c:out value="${program.progID}" />"><c:out value="${program.progName}" /></a></td>
+									  			<th><c:out value="${theCount.count}" /></th>
+									  			<td><a href="ProgramController?action=viewProgram&progID=<c:out value="${program.progID}" />"><c:out value="${program.progName}" /></a></td>
 									  		</tr>
+									  	</tbody>
 									    </c:forEach>
 									</table>
-									<a class="button is-medium is-info is-rounded" href="ProgramController?action=insert">Daftar Program</a>
+								    </div>
+								    <div id="Lulus" class="tabcontent">
+								      <table class="table is-hoverable is-fullwidth">
+									    <thead>
+								      		<tr>
+										      	<th>Bil.</th>
+										        <th>Nama Program</th>
+									      </tr>
+								      	</thead>
+									  <c:forEach items="${programsLulus}" var="program" varStatus="theCount">
+									  	<tbody>
+									  		<tr>
+									  			<th><c:out value="${theCount.count}" /></th>
+									  			<td><a href="ProgramController?action=viewProgram&progID=<c:out value="${program.progID}" />"><c:out value="${program.progName}" /></a></td>
+									  		</tr>
+									  	</tbody>
+									    </c:forEach>
+									   </table>
+								    </div>
+								    <div id="Gagal" class="tabcontent">
+								    	<table class="table is-hoverable is-fullwidth">
+										    <thead>
+									      		<tr>
+											      	<th>Bil.</th>
+											        <th>Nama Program</th>
+										      </tr>
+									      	</thead>
+										  <c:forEach items="${programsGagal}" var="program" varStatus="theCount">
+										  	<tbody>
+										  		<tr>
+										  			<th><c:out value="${theCount.count}" /></th>
+										  			<td><a href="ProgramController?action=viewProgram&progID=<c:out value="${program.progID}" />"><c:out value="${program.progName}" /></a></td>
+										  		</tr>
+										  	</tbody>
+										    </c:forEach>
+										</table>
+								    </div>
+								    <div class="buttons">
+								    	<a class="button is-medium is-info is-rounded" href="ProgramController?action=insert">Daftar Program</a>
+								    </div>
 		                        </div>
 		                    </div>
 		                </section>
@@ -110,6 +181,20 @@
 		</div><!-- end container -->
 	</section>
 	<script type="text/javascript">
+	function openProgram(evt, status) {
+	    var i, tabcontent, tablinks;
+	    tabcontent = document.getElementsByClassName("tabcontent");
+	    for (i = 0; i < tabcontent.length; i++) {
+	        tabcontent[i].style.display = "none";
+	    }
+	    tablinks = document.getElementsByClassName("tablinks");
+	    for (i = 0; i < tablinks.length; i++) {
+	        tablinks[i].className = tablinks[i].className.replace(" is-active", "");
+	    }
+	    document.getElementById(status).style.display = "block";
+	    evt.currentTarget.className += " is-active";
+	}
+
 	document.addEventListener('DOMContentLoaded', () => {
 
 		  // Get all "navbar-burger" elements
@@ -136,6 +221,11 @@
 
 		});
 	</script>
+	<script>
+		var mybtn = document.getElementsByClassName("tablinks")[0];
+		mybtn.click();
+	</script>
+	
 	<footer class="footer">
 	  <div class="content has-text-centered">
 	    <p>This website was handcrafted with ❤️ </p>

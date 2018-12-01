@@ -70,18 +70,24 @@ public class StatusController extends HttpServlet {
         	String admID = request.getParameter("admID");
         	statusdao.approveProgram(progID,admID);
         	forward = LIST_PROGRAM;
-            request.setAttribute("programs", statusdao.getAllProgram()); 
+        	request.setAttribute("programsDiproses", statusdao.getAllPendingProgram()); 
+            request.setAttribute("programsLulus", statusdao.getAllApproveProgram());
+            request.setAttribute("programsGagal", statusdao.getAllRejectProgram()); 
         }
         else if (action.equalsIgnoreCase("rejectProgram")) {
         	String progID = request.getParameter("progID");
         	String admID = request.getParameter("admID");
         	statusdao.rejectProgram(progID,admID);
         	forward = LIST_PROGRAM;
-            request.setAttribute("programs", statusdao.getAllProgram()); 
+        	request.setAttribute("programsDiproses", statusdao.getAllPendingProgram()); 
+            request.setAttribute("programsLulus", statusdao.getAllApproveProgram());
+            request.setAttribute("programsGagal", statusdao.getAllRejectProgram()); 
         }
         else {
             forward = LIST_PROGRAM;
-            request.setAttribute("programs", statusdao.getAllProgram()); 
+            request.setAttribute("programsDiproses", statusdao.getAllPendingProgram()); 
+            request.setAttribute("programsLulus", statusdao.getAllApproveProgram());
+            request.setAttribute("programsGagal", statusdao.getAllRejectProgram());
         }
         RequestDispatcher view = request.getRequestDispatcher(forward);
         view.forward(request, response);

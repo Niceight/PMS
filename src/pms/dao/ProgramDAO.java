@@ -17,15 +17,63 @@ public class ProgramDAO {
 	static PreparedStatement ps=null;
 	static Statement stmt=null;
 
-	//list program by id (organizer)
-	public List<ProgramBean> getAllOrganizerProgram(String orgID) {
+	//list pending program by id (organizer)
+	public List<ProgramBean> getAllOrganizerPendingProgram(String orgID) {
 		
 	  List<ProgramBean> programs = new ArrayList<ProgramBean>();
 	  
 	  try {
 		currentCon = ConnectionManager.getConnection();
 		stmt = currentCon.createStatement();
-		String q = "select * from PROGRAM where ORGID = '" + orgID + "' order by progid desc";
+		String q = "select progid, progname from program join status using (progid) where (progid, statusdate) in ( select progid, max(statusdate) from status group by progid) and status='DIPROSES' and orgid='" + orgID + "'";
+		ResultSet rs = stmt.executeQuery(q);
+	  
+		  while (rs.next()) {
+			  ProgramBean program = new ProgramBean();
+			  program.setProgID(rs.getString("progID"));
+			  program.setProgName(rs.getString("progName"));
+			  
+		      programs.add(program);
+		  }
+	  } catch (SQLException e) {
+	      e.printStackTrace();
+	  }
+	  return programs;
+	}
+	
+	//list approve program by id (organizer)
+	public List<ProgramBean> getAllOrganizerApproveProgram(String orgID) {
+			
+	  List<ProgramBean> programs = new ArrayList<ProgramBean>();
+	  
+	  try {
+		currentCon = ConnectionManager.getConnection();
+		stmt = currentCon.createStatement();
+		String q = "select progid, progname from program join status using (progid) where (progid, statusdate) in ( select progid, max(statusdate) from status group by progid) and status='LULUS' and orgid='" + orgID + "'";
+		ResultSet rs = stmt.executeQuery(q);
+	  
+		  while (rs.next()) {
+			  ProgramBean program = new ProgramBean();
+			  program.setProgID(rs.getString("progID"));
+			  program.setProgName(rs.getString("progName"));
+			  
+		      programs.add(program);
+		  }
+	  } catch (SQLException e) {
+	      e.printStackTrace();
+	  }
+	  return programs;
+	}
+	
+	//list reject program by id (organizer)
+	public List<ProgramBean> getAllOrganizerRejectProgram(String orgID) {
+		
+	  List<ProgramBean> programs = new ArrayList<ProgramBean>();
+	  
+	  try {
+		currentCon = ConnectionManager.getConnection();
+		stmt = currentCon.createStatement();
+		String q = "select progid, progname from program join status using (progid) where (progid, statusdate) in ( select progid, max(statusdate) from status group by progid) and status='GAGAL' and orgid='" + orgID + "'";
 		ResultSet rs = stmt.executeQuery(q);
 	  
 		  while (rs.next()) {

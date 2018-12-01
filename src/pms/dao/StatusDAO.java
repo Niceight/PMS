@@ -51,15 +51,15 @@ public class StatusDAO {
 		}
 	}
 
-	//list all program with progID desc order
-	public List<ProgramBean> getAllProgram() {
+	//list all pending program with progID desc order
+	public List<ProgramBean> getAllPendingProgram() {
 		
 	  List<ProgramBean> programs = new ArrayList<ProgramBean>();
 	  
 	  try {
 		currentCon = ConnectionManager.getConnection();
 		stmt = currentCon.createStatement();
-		String q = "select PROGID, PROGNAME from PROGRAM order by 1 desc";
+		String q = "select progid, progname from program join status using (progid) where (progid, statusdate) in ( select progid, max(statusdate) from status group by progid) and status='DIPROSES'";
 		ResultSet rs = stmt.executeQuery(q);
 	  
 		  while (rs.next()) {
@@ -75,6 +75,53 @@ public class StatusDAO {
 	  return programs;
 	}
 	
+	//list all approve program with progID desc order
+		public List<ProgramBean> getAllApproveProgram() {
+			
+		  List<ProgramBean> programs = new ArrayList<ProgramBean>();
+		  
+		  try {
+			currentCon = ConnectionManager.getConnection();
+			stmt = currentCon.createStatement();
+			String q = "select progid, progname from program join status using (progid) where (progid, statusdate) in ( select progid, max(statusdate) from status group by progid) and status='LULUS'";
+			ResultSet rs = stmt.executeQuery(q);
+		  
+			  while (rs.next()) {
+				  ProgramBean program = new ProgramBean();
+				  program.setProgID(rs.getString("progID"));
+				  program.setProgName(rs.getString("progName"));
+				  
+			      programs.add(program);
+			  }
+		  } catch (SQLException e) {
+		      e.printStackTrace();
+		  }
+		  return programs;
+		}
+		
+		//list all reject program with progID desc order
+		public List<ProgramBean> getAllRejectProgram() {
+			
+		  List<ProgramBean> programs = new ArrayList<ProgramBean>();
+		  
+		  try {
+			currentCon = ConnectionManager.getConnection();
+			stmt = currentCon.createStatement();
+			String q = "select progid, progname from program join status using (progid) where (progid, statusdate) in ( select progid, max(statusdate) from status group by progid) and status='GAGAL'";
+			ResultSet rs = stmt.executeQuery(q);
+		  
+			  while (rs.next()) {
+				  ProgramBean program = new ProgramBean();
+				  program.setProgID(rs.getString("progID"));
+				  program.setProgName(rs.getString("progName"));
+				  
+			      programs.add(program);
+			  }
+		  } catch (SQLException e) {
+		      e.printStackTrace();
+		  }
+		  return programs;
+		}
 	
 	//get newest status program and its organizer name
 	public StatusAdminOrganizerBean getStatusAndOrgName(String progID, String orgID) {

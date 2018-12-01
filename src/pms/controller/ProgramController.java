@@ -53,7 +53,9 @@ public class ProgramController extends HttpServlet {
         if (action.equalsIgnoreCase("myProgram")){
             String orgID = request.getParameter("orgID");
             forward = LIST_PROGRAM;
-            request.setAttribute("programs", dao.getAllOrganizerProgram(orgID)); 
+            request.setAttribute("programsDiproses", dao.getAllOrganizerPendingProgram(orgID)); 
+            request.setAttribute("programsLulus", dao.getAllOrganizerApproveProgram(orgID)); 
+            request.setAttribute("programsGagal", dao.getAllOrganizerRejectProgram(orgID)); 
         }
         else if(action.equalsIgnoreCase("viewProgram")){
         	String progID = request.getParameter("progID");
@@ -90,7 +92,9 @@ public class ProgramController extends HttpServlet {
         	String orgID = request.getParameter("orgID");
         	dao.deleteProgramByID(progID);
         	forward = LIST_PROGRAM;
-        	request.setAttribute("programs", dao.getAllOrganizerProgram(orgID)); 
+        	request.setAttribute("programsDiproses", dao.getAllOrganizerPendingProgram(orgID)); 
+            request.setAttribute("programsLulus", dao.getAllOrganizerApproveProgram(orgID)); 
+            request.setAttribute("programsGagal", dao.getAllOrganizerRejectProgram(orgID)); 
         }
         else {
             forward = INSERT;
@@ -151,7 +155,9 @@ public class ProgramController extends HttpServlet {
 		        }
 			        
 		        forward = LIST_PROGRAM;
-		        request.setAttribute("programs", dao.getAllOrganizerProgram(orgID)); 
+		        request.setAttribute("programsDiproses", dao.getAllOrganizerPendingProgram(orgID)); 
+	            request.setAttribute("programsLulus", dao.getAllOrganizerApproveProgram(orgID)); 
+	            request.setAttribute("programsGagal", dao.getAllOrganizerRejectProgram(orgID)); 
 		        RequestDispatcher view = request.getRequestDispatcher(forward);
 		        view.forward(request, response);
 			}
@@ -177,7 +183,9 @@ public class ProgramController extends HttpServlet {
 		        }
 		        
 		        forward = LIST_PROGRAM;
-		        request.setAttribute("programs", dao.getAllOrganizerProgram(orgID)); 
+		        request.setAttribute("programsDiproses", dao.getAllOrganizerPendingProgram(orgID)); 
+	            request.setAttribute("programsLulus", dao.getAllOrganizerApproveProgram(orgID)); 
+	            request.setAttribute("programsGagal", dao.getAllOrganizerRejectProgram(orgID));  
 		        RequestDispatcher view = request.getRequestDispatcher(forward);
 		        view.forward(request, response);
 			}
