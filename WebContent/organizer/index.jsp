@@ -38,6 +38,12 @@
 	    		</a>
 			</div>
 			<div id="navbarBasicExample" class="navbar-menu">
+				<div class="navbar-start is-hidden-desktop">
+					<a class="navbar-item is-active" href="/PMS/organizer/index.jsp">Laman Utama</a>
+					<a class="navbar-item" href="/PMS/OrganizerController?action=viewAccount&orgEmail=<c:out value="<%=email%>"/>">Profil Anda</a>
+					<a class="navbar-item" href="/PMS/ProgramController?action=insert">Daftar Program</a>
+					<a class="navbar-item" href="/PMS/ProgramController?action=myProgram&orgID=<c:out value="<%=id%>"/>">MyProgram</a>
+				</div>
 				<div class="navbar-end">
 					<div class="navbar-item">
 						<div class="buttons">
@@ -52,9 +58,9 @@
 		<div class="container">
 			<div class="hero-body">
 			    <div class="columns">
-					<div class="column is-3 is-mobile">
+					<div class="column is-3 is-hidden-mobile">
 						<div class="box">
-							<aside class="menu ">
+							<aside class="menu is-medium">
 			                    <p class="menu-label">
 			                        Umum
 			                    </p>
