@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%
@@ -10,16 +10,15 @@
 	
 	if(session.getAttribute("currentSessionOrganizerEmail")==null)
 	    response.sendRedirect("/PMS/login.jsp");
-%>
-
+%> 
 <!DOCTYPE html>
 <html>
 <head>
-<head>
-	<meta charset="ISO-8859-1">
+	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Paparan Program</title>
+	<title>Anjung Pengguna</title>
 	<link rel="stylesheet" href="/PMS/css/bulma.min.css" />
+	
 </head>
 <body onload="programType(x,y,z)">
 <%	String email = (String)session.getAttribute("currentSessionOrganizerEmail");
@@ -132,7 +131,7 @@
 		                            
 		                           	<div class="buttons">
 									 	<a id="status" style="display:none" class="button is-medium is-info is-rounded" href="ProgramController?action=updateProgram&progID=<c:out value="${program.progID}"/>">Pinda Program</a>
-										<a onclick="return confirm('Anda pasti batal program ini?');" class="button is-medium is-danger is-rounded" href="ProgramController?action=deleteProgram&progID=<c:out value="${program.progID}"/>&orgID=<c:out value="<%=id%>"/> ">Batal Program</a>
+										<a onclick="return confirm('Anda pasti batal program ini? 😮');" class="button is-medium is-danger is-rounded" href="ProgramController?action=deleteProgram&progID=<c:out value="${program.progID}"/>&orgID=<c:out value="<%=id%>"/> ">Batal Program</a>
 		                           	</div>
 		                        </div>
 		                    </div>
@@ -198,5 +197,13 @@
 
 		});
 	</script>
+	<footer class="footer">
+	  <div class="content has-text-centered">
+	    <p>This website was handcrafted with ❤️ </p>
+	    <p>by UMMAH InfoSys</p>
+	    <p>using <a target="_blank" href="https://bulma.io/">Bulma</a></p>
+	    <p>Source code on <a target="_blank" href="https://github.com/Niceight/PMS">GitHub</a></p>
+	  </div>
+	</footer>
 </body>
 </html>

@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 
 <head>
-	<meta charset="ISO-8859-1">
+	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Laman Utama</title>
 	<link rel="stylesheet" href="css/bulma.min.css" />
@@ -40,15 +40,16 @@
 		</div>
 	</nav>
 <body>
+
 	<section class="hero is-light is-fullheight-with-navbar">
 	  <!-- Hero content: will be in the middle -->
 	  <div class="hero-body">
 	    <div class="container has-text-centered">
 	      <h1 class="title">
-	        SELAMAT DATANG KE PROGRAM MANAGEMENT SYSTEM
+	        SELAMAT DATANG KE <i>PROGRAM MANAGEMENT SYSTEM</i> ✨
 	      </h1>
 	      <h2 class="subtitle">
-	        untuk Masjid As-sajidin
+	        untuk Masjid As-sajidin 🕌
 	      </h2>
 	    </div>
 	  </div>
@@ -95,5 +96,13 @@
 
 		});
 	</script>
+	<footer class="footer">
+	  <div class="content has-text-centered">
+	    <p>This website was handcrafted with ❤️ </p>
+	    <p>by UMMAH InfoSys</p>
+	    <p>using <a target="_blank" href="https://bulma.io/">Bulma</a></p>
+	    <p>Source code on <a target="_blank" href="https://github.com/Niceight/PMS">GitHub</a></p>
+	  </div>
+	</footer>
 </body>
 </html>

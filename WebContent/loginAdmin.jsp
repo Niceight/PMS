@@ -1,12 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 
 <head>
-	<meta charset="ISO-8859-1">
+	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Log Masuk</title>
+	<title>Log Masuk Pentadbir</title>
 	<link rel="stylesheet" href="css/bulma.min.css" />
 </head>
 
@@ -47,9 +47,9 @@
 	                    <p class="subtitle has-text-grey-dark">Sila log masuk.</p>
                     <div class="box">
 	                    
-                        <!-- <figure class="avatar">
-                            <img src="https://placehold.it/128x128">
-                        </figure> -->
+                        <figure class="avatar">
+                            <img src="">
+                        </figure>
                         <form method="get" action="LoginController">
                         	<div class="field">
                                 <div class="control">
@@ -68,7 +68,7 @@
                        
                     </div>
                      <p class="has-text-grey-darker">
-	                        <a href="/PMS/register.jsp">Daftar Pengguna</a> &nbsp;�&nbsp;
+	                        <a href="/PMS/register.jsp">Daftar Pengguna</a> &nbsp;·&nbsp;
 	                        <a href="/PMS/login.jsp">Log Masuk Pengguna</a>
                     	</p>
                 </div>
@@ -102,6 +102,13 @@
 
 		});
 	</script>
+	<footer class="footer">
+	  <div class="content has-text-centered">
+	    <p>This website was handcrafted with ❤️ </p>
+	    <p>by UMMAH InfoSys</p>
+	    <p>using <a target="_blank" href="https://bulma.io/">Bulma</a></p>
+	    <p>Source code on <a target="_blank" href="https://github.com/Niceight/PMS">GitHub</a></p>
+	  </div>
+	 </footer>
 </body>
-
 </html>

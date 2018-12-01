@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%
@@ -10,14 +10,15 @@
 	
 	if(session.getAttribute("currentSessionOrganizerEmail")==null)
 	    response.sendRedirect("/PMS/login.jsp");
-%>  
+%> 
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="ISO-8859-1">
+	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>My Program</title>
+	<title>Anjung Pengguna</title>
 	<link rel="stylesheet" href="/PMS/css/bulma.min.css" />
+	
 </head>
 <body>
 <%	String email = (String)session.getAttribute("currentSessionOrganizerEmail");
@@ -135,5 +136,13 @@
 
 		});
 	</script>
+	<footer class="footer">
+	  <div class="content has-text-centered">
+	    <p>This website was handcrafted with ❤️ </p>
+	    <p>by UMMAH InfoSys</p>
+	    <p>using <a target="_blank" href="https://bulma.io/">Bulma</a></p>
+	    <p>Source code on <a target="_blank" href="https://github.com/Niceight/PMS">GitHub</a></p>
+	  </div>
+	</footer>
 </body>
 </html>
