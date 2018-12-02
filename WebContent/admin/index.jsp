@@ -40,8 +40,8 @@
 				<a class="navbar-item is-active" href="/PMS/admin/index.jsp">Laman Utama</a>
 				<a class="navbar-item" href="/PMS/AdminController?action=viewAccount&admEmail=<c:out value="<%=email%>"/>">Profil Anda</a>
 				<a class="navbar-item" href="/PMS/StatusController?action=listProgram">Pengesahan Program</a>
-				<a class="navbar-item" href="/PMS/ProgramController?action=insert">Daftar Program</a>
-				<a class="navbar-item" href="/PMS/ProgramController?action=myProgram&admID=<c:out value="<%=id%>"/>">MyProgram</a>
+				<a class="navbar-item" href="/PMS/AdminController?action=registerAdmins">Daftar Pentadbir</a>
+				<a class="navbar-item" href="/PMS/AdminController?action=viewAdmins&admID=<c:out value="<%=id%>" />">Papar Pentadbir Bawahan</a>
 			</div>
 			<div class="navbar-end">
 				<div class="navbar-item">
@@ -66,8 +66,8 @@
 			                        <li><a class="is-active has-text-white" href="/PMS/admin/index.jsp">Laman Utama</a></li>
 			                        <li><a>Profil</a>
 				                        <ul>
-				                        	<li><a class="" href="/PMS/OrganizerController?action=viewAccount&orgEmail=<c:out value="<%=email%>"/>">Profil Anda</a></li>
-				                        	<li><a href="/PMS/OrganizerController?action=updateAccount&orgEmail=<c:out value="<%=email%>" />">Pinda Profil</a></li>
+				                        	<li><a class="" href="/PMS/AdminController?action=viewAccount&admEmail=<c:out value="<%=email%>"/>">Profil Anda</a></li>
+				                        	<li><a href="/PMS/AdminController?action=updateAccount&admEmail=<c:out value="<%=email%>" />">Pinda Profil</a></li>
 				                        </ul>
 			                        </li>
 			                    </ul>
@@ -78,8 +78,8 @@
 			                    	<li><a class="" href="/PMS/StatusController?action=listProgram">Pengesahan Program</a>	</li>
 			                    	<li><a>Pentadbir</a>
 				                        <ul>
-				                        	<li><a class="" href="/PMS/AdminController?action=insert">Daftar Pentadbir</a></li>
-				                        	<li><a href="/PMS/OrganizerController?action=updateAccount&orgEmail=<c:out value="<%=email%>" />">Papar Pentadbir Bawahan</a></li>
+				                        	<li><a class="" href="/PMS/AdminController?action=registerAdmins">Daftar Pentadbir</a></li>
+				                        	<li><a href="/PMS/AdminController?action=viewAdmins&admID=<c:out value="<%=id%>" />">Papar Pentadbir Bawahan</a></li>
 				                        </ul>
 			                        </li>
 			                    </ul>
@@ -105,11 +105,12 @@
 		                    <div class="hero-body">
 		                        <div class="container">
 		                            <h1 class="title has-text-dark">
-		                                Selamat Datang 👋, <%= name %>. 
+		                                Selamat Datang 👋, <%= name %>
 		                            </h1>
 		                            
 		                            <h2 class="subtitle has-text-dark">
-		                                Apa khabar? Bagaimana keadaan anda hari ini? 😃
+		                                Bagaimana dengan keadaan awak hari ini? <br/>
+		                                Semoga awak ceria-ceria selalu 😁
 		                            </h2>
 		                        </div>
 		                    </div>

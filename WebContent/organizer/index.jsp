@@ -93,7 +93,7 @@
 		                            </h1>
 		                            
 		                            <h2 class="subtitle has-text-dark">
-		                                Saya harap anda dilimpahi dengan rezeki pada hari ini. InsyaAllah amin. 😊
+		                                Saya harap awak dilimpahi dengan rezeki pada hari ini. InsyaAllah amin. 😊
 		                            </h2>
 		                        </div>
 		                    </div>

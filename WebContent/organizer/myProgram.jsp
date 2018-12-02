@@ -169,7 +169,7 @@
 										    </c:forEach>
 										</table>
 								    </div>
-								    <div class="buttons">
+								    <div class="buttons is-right">
 								    	<a class="button is-medium is-info is-rounded" href="ProgramController?action=insert">Daftar Program</a>
 								    </div>
 		                        </div>

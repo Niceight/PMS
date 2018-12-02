@@ -129,7 +129,7 @@
 									<label class="label">Status Program</label>
 		                            <p class="content is-medium"><strong><c:out value="${statusProgram.status}" /></strong></p>
 		                            
-		                           	<div class="buttons">
+		                           	<div class="buttons is-right">
 									 	<a id="status" style="display:none" class="button is-medium is-info is-rounded" href="ProgramController?action=updateProgram&progID=<c:out value="${program.progID}"/>">Pinda Program</a>
 										<a onclick="return confirm('Anda pasti batal program ini? 😮');" class="button is-medium is-danger is-rounded" href="ProgramController?action=deleteProgram&progID=<c:out value="${program.progID}"/>&orgID=<c:out value="<%=id%>"/> ">Batal Program</a>
 		                           	</div>

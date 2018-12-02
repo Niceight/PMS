@@ -150,7 +150,7 @@
 			                                </div>
 			                            </div>
 			                            <div class="buttons">
-			                            	<input class="button is-info is-medium is-rounded" type="submit" value="Simpan">
+			                            	<input class="button is-info is-medium is-rounded is-fullwidth" type="submit" value="Simpan">
 			                            </div>
 			                        </form>
 		                        </div>

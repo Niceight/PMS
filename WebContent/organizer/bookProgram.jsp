@@ -178,8 +178,8 @@
 			                            </div>
 			                        
 			                           	<div class="buttons">
-			                           		<input class="button is-medium is-info is-rounded" type="submit" value="Daftar"> 
-			                           		<input class="button is-medium is-danger is-rounded" type="reset" value="Semula"> 
+			                           		<input class="button is-medium is-info is-rounded is-fullwidth" type="submit" value="Daftar"> 
+			                           		<input class="button is-medium is-danger is-rounded is-fullwidth" type="reset" value="Semula"> 
 			                           	</div>
 
 									</form>  

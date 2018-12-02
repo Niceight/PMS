@@ -47,9 +47,9 @@
 	                    <p class="subtitle has-text-grey-dark">Sila log masuk.</p>
                     <div class="box">
 	                    
-                        <figure class="avatar">
+                        <!-- <figure class="avatar">
                             <img src="">
-                        </figure>
+                        </figure> -->
                         <form method="get" action="LoginController">
                         	<div class="field">
                                 <div class="control">

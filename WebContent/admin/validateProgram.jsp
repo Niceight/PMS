@@ -40,8 +40,8 @@
 				<a class="navbar-item" href="/PMS/admin/index.jsp">Laman Utama</a>
 				<a class="navbar-item" href="/PMS/AdminController?action=viewAccount&admEmail=<c:out value="<%=email%>"/>">Profil Anda</a>
 				<a class="navbar-item is-active" href="/PMS/StatusController?action=listProgram">Pengesahan Program</a>
-				<a class="navbar-item" href="/PMS/ProgramController?action=insert">Daftar Program</a>
-				<a class="navbar-item" href="/PMS/ProgramController?action=myProgram&admID=<c:out value="<%=id%>"/>">MyProgram</a>
+				<a class="navbar-item" href="/PMS/AdminController?action=registerAdmins">Daftar Pentadbir</a>
+				<a class="navbar-item" href="/PMS/AdminController?action=viewAdmins&admID=<c:out value="<%=id%>" />">Papar Pentadbir Bawahan</a>
 			</div>
 			<div class="navbar-end">
 				<div class="navbar-item">
@@ -78,8 +78,8 @@
 			                    	<li><a class="is-active has-text-white" href="/PMS/StatusController?action=listProgram">Pengesahan Program</a>	</li>
 			                    	<li><a>Pentadbir</a>
 				                        <ul>
-				                        	<li><a class="" href="/PMS/AdminController?action=insert">Daftar Pentadbir</a></li>
-				                        	<li><a href="/PMS/OrganizerController?action=updateAccount&orgEmail=<c:out value="<%=email%>" />">Papar Pentadbir Bawahan</a></li>
+				                        	<li><a class="" href="/PMS/AdminController?action=registerAdmins">Daftar Pentadbir</a></li>
+				                        	<li><a href="/PMS/AdminController?action=viewAdmins&admID=<c:out value="<%=id%>" />">Papar Pentadbir Bawahan</a></li>
 				                        </ul>
 			                        </li>
 			                    </ul>
@@ -154,7 +154,7 @@
 		                            <label class="label">Tarikh kemaskini</label>
 		                            <p class="content is-medium"><c:out value="${statusProgram.validateStatusDate}" /></p>
 		                            
-		                           	<div class="buttons">
+		                           	<div class="buttons is-right">
 									 	<a onclick="return confirm('Anda pasti LULUS-kan program ini? 😃');"class="button is-medium is-success is-rounded" href="StatusController?action=approveProgram&progID=<c:out value="${program.progID}"/>&admID=<c:out value="<%=id%>"/>">Lulus ✔️</a>
 										<a onclick="return confirm('Anda pasti GAGAL-kan program ini? 😮');" class="button is-medium is-danger is-rounded" href="StatusController?action=rejectProgram&progID=<c:out value="${program.progID}"/>&admID=<c:out value="<%=id%>"/>">Gagal ❌</a>
 		                           	</div>

@@ -113,8 +113,11 @@
 		                            
 		                            <label class="label">Nama Organisasi</label>
 		                            <p class="content is-medium"><c:out value="${organizer.organization}" /></p>
+		                            
+		                           <div class="buttons is-right">
+		                           	<a class="button is-info is-medium is-rounded" href="OrganizerController?action=updateAccount&orgEmail=<c:out value="<%=email%>" />">Pinda Profil</a>
+		                           </div>
 		                           
-		                           <a class="button is-info is-medium is-rounded" href="OrganizerController?action=updateAccount&orgEmail=<c:out value="<%=email%>" />">Pinda Profil</a>
 		                        </div>
 		                    </div>
 		                </section>
