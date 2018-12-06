@@ -54,20 +54,6 @@
 	    </div>
 	  </div>
 	
-	  <!-- Hero footer: will stick at the bottom -->
-	  <div class="hero-foot">
-	    <nav class="tabs is-boxed is-fullwidth">
-	      <div class="container">
-	        <ul>
-	          <li class="is-active"><a>Laman Utama</a></li>
-	          <li><a>Sejarah</a></li>
-	          <li><a>Galeri</a></li>
-	          <li><a>Organisasi</a></li>
-	          <li><a>Hubungi</a></li>
-	        </ul>
-	      </div>
-	    </nav>
-	  </div>
 	</section>
 	<script type="text/javascript">
 	document.addEventListener('DOMContentLoaded', () => {

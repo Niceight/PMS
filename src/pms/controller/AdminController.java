@@ -76,7 +76,6 @@ public class AdminController extends HttpServlet {
 		admin.setAdmPhone(request.getParameter("admPhone"));
 		admin.setSvID(request.getParameter("svID"));
 		
-		
 		String email = request.getParameter("admEmail");
 		String check = request.getParameter("check");
 		
@@ -90,8 +89,9 @@ public class AdminController extends HttpServlet {
 			}
         	
         	forward = VIEW_ADMINS;
-			String svID = request.getParameter(admin.getSvID());
-        	request.setAttribute("admin", admindao.getAdminBySvID(svID));
+        	request.setAttribute("admins", admindao.getAdminBySvID(admin.getSvID()));
+        	RequestDispatcher view = request.getRequestDispatcher(forward);
+    	    view.forward(request, response);
         }
 		else if(admin.isValid() && check.equalsIgnoreCase("alreadyRegistered")) {
 			response.sendRedirect("/admin/registerSubordinate?accountExist=.jsp");

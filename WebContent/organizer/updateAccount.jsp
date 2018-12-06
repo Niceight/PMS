@@ -26,31 +26,29 @@
 	String id = (String)session.getAttribute("currentSessionOrganizerID");
 %>
 	<nav class="navbar is-primary" role="navigation" aria-label="main navigation">
-		<div class="container">
-			<div class="navbar-brand" >
-				<a class="navbar-item" href="/PMS/organizer/index.jsp">
-					<img alt="" src="/PMS/img/logo/logo-pms.png">
-				</a>
-				<a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-			      <span aria-hidden="true"></span>
-			      <span aria-hidden="true"></span>
-			      <span aria-hidden="true"></span>
-	    		</a>
+		<div class="navbar-brand" >
+			<a class="navbar-item" href="/PMS/organizer/index.jsp">
+				<img alt="" src="/PMS/img/logo/logo-pms.png">
+			</a>
+			<a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+		      <span aria-hidden="true"></span>
+		      <span aria-hidden="true"></span>
+		      <span aria-hidden="true"></span>
+    		</a>
+		</div>
+		<div id="navbarBasicExample" class="navbar-menu">
+			<div class="navbar-start is-hidden-desktop">
+				<a class="navbar-item" href="/PMS/organizer/index.jsp">Laman Utama</a>
+				<a class="navbar-item is-active" href="/PMS/OrganizerController?action=viewAccount&orgEmail=<c:out value="<%=email%>"/>">Profil Anda</a>
+				<a class="navbar-item" href="/PMS/ProgramController?action=insert">Daftar Program</a>
+				<a class="navbar-item" href="/PMS/ProgramController?action=myProgram&orgID=<c:out value="<%=id%>"/>">MyProgram</a>
 			</div>
-			<div id="navbarBasicExample" class="navbar-menu">
-				<div class="navbar-start is-hidden-desktop">
-					<a class="navbar-item" href="/PMS/organizer/index.jsp">Laman Utama</a>
-					<a class="navbar-item is-active" href="/PMS/OrganizerController?action=viewAccount&orgEmail=<c:out value="<%=email%>"/>">Profil Anda</a>
-					<a class="navbar-item" href="/PMS/ProgramController?action=insert">Daftar Program</a>
-					<a class="navbar-item" href="/PMS/ProgramController?action=myProgram&orgID=<c:out value="<%=id%>"/>">MyProgram</a>
-				</div>
-				<div class="navbar-end">
-					<div class="navbar-item">
-						<div class="buttons">
-							<a class="button is-light is-rounded" href="/PMS/organizer/logout.jsp">Log Keluar</a>
-						</div>
-					</div>		
-				</div>
+			<div class="navbar-end">
+				<div class="navbar-item">
+					<div class="buttons">
+						<a class="button is-light is-rounded" href="/PMS/organizer/logout.jsp">Log Keluar</a>
+					</div>
+				</div>		
 			</div>
 		</div>
 	</nav>
