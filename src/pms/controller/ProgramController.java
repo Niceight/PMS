@@ -12,6 +12,7 @@ import pms.dao.ClosedDAO;
 import pms.dao.OpenDAO;
 import pms.dao.ProgramDAO;
 import pms.dao.StatusDAO;
+import pms.dao.VenueDAO;
 import pms.model.ClosedBean;
 import pms.model.OpenBean;
 import pms.model.ProgramBean;
@@ -30,6 +31,7 @@ public class ProgramController extends HttpServlet {
     private OpenDAO opendao;
     private ClosedDAO closeddao;
     private StatusDAO statusdao;
+    private VenueDAO venuedao;
     String forward="";
     
     /**
@@ -41,6 +43,7 @@ public class ProgramController extends HttpServlet {
         opendao = new OpenDAO();
         closeddao = new ClosedDAO();
         statusdao = new StatusDAO();
+        venuedao = new VenueDAO();
     }
 
 	/**
@@ -63,6 +66,7 @@ public class ProgramController extends HttpServlet {
             ProgramBean program = dao.getProgramByID(progID);
             request.setAttribute("program", program);
             request.setAttribute("statusProgram", statusdao.getStatusProgram(progID)); 
+            request.setAttribute("venueProgram", venuedao.getVenueProgramByID(program.getVenueID())); 
             if(program.getProgType().equalsIgnoreCase("Umum")) {
             	OpenBean open = opendao.getOpenProgramByID(progID);
             	request.setAttribute("openProgram", open); 
@@ -78,6 +82,23 @@ public class ProgramController extends HttpServlet {
             forward = UPDATE_PROGRAM;
             ProgramBean program = dao.getProgramByID(progID);
             request.setAttribute("program", program); 
+            request.setAttribute("venues", venuedao.getAllVenue()); 
+            if(program.getProgType().equalsIgnoreCase("Umum")) {
+            	OpenBean open = opendao.getOpenProgramByID(progID);
+            	request.setAttribute("openProgram", open); 
+            }
+            else {
+            	ClosedBean closed = closeddao.getOpenProgramByID(progID);
+            	request.setAttribute("closedProgram", closed); 
+            }
+        }
+        else if(action.equalsIgnoreCase("updateARProgram")) {
+        	String progID = request.getParameter("progID");
+        	statusdao.addStatusProgram(progID);
+            forward = UPDATE_PROGRAM;
+            ProgramBean program = dao.getProgramByID(progID);
+            request.setAttribute("program", program); 
+            request.setAttribute("venues", venuedao.getAllVenue()); 
             if(program.getProgType().equalsIgnoreCase("Umum")) {
             	OpenBean open = opendao.getOpenProgramByID(progID);
             	request.setAttribute("openProgram", open); 
@@ -98,6 +119,7 @@ public class ProgramController extends HttpServlet {
         }
         else {
             forward = INSERT;
+            request.setAttribute("venues", venuedao.getAllVenue()); 
         }
         RequestDispatcher view = request.getRequestDispatcher(forward);
         view.forward(request, response);

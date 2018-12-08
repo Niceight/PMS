@@ -143,9 +143,9 @@
 			                        			<div class="select is-medium is-rounded is-fullwidth">
 				                                    <select name="venueID" required>
 													    <option value="0">Pilih Tempat</option>
-													    <option id="1" value="1">Dalam Masjid</option>
-													    <option id="2" value="2">Luar Masjid</option>
-													    <option id="3" value="3">Bilik Mesyuarat</option>
+													    <c:forEach items="${venues}" var="venue">
+															    <option id="<c:out value="${venue.venueID}" />" value="<c:out value="${venue.venueID}" />"><c:out value="${venue.venueName}" /></option>		  	
+														</c:forEach>
 												  	</select>
 				                                </div>
 			                        		</div>

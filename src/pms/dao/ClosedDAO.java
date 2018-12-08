@@ -32,7 +32,8 @@ public class ClosedDAO {
 
 		try {
 			currentCon = ConnectionManager.getConnection();
-			ps=currentCon.prepareStatement("insert into PROGRAM (PROGNAME, PROGSTARTDATE, PROGENDDATE, PROGSTARTTIME, PROGENDTIME, PROGTYPE, ORGID, VENUEID)values(?,?,?,?,?,?,?,?)");
+			ps=currentCon.prepareStatement("insert into PROGRAM (PROGNAME, PROGSTARTDATE, PROGENDDATE, PROGSTARTTIME, PROGENDTIME, PROGTYPE, ORGID, VENUEID)"
+					+ "values(?,?,?,?,?,?,?,?)");
 			ps.setString(1,progName);
 			ps.setDate(2,progStartDate);
 			ps.setDate(3,progEndDate);

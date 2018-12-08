@@ -144,9 +144,9 @@
 			                        			<div class="select is-medium is-rounded is-fullwidth">
 				                                    <select name="venueID" required>
 													    <option value="0">Pilih Tempat</option>
-													    <option id="1" value="1">Dalam Masjid</option>
-													    <option id="2" value="2">Luar Masjid</option>
-													    <option id="3" value="3">Bilik Mesyuarat</option>
+													    <c:forEach items="${venues}" var="venue">
+															    <option id="<c:out value="${venue.venueID}" />" value="<c:out value="${venue.venueID}" />"><c:out value="${venue.venueName}" /></option>		  	
+														</c:forEach>
 												  	</select>
 				                                </div>
 			                        		</div>
@@ -206,16 +206,7 @@
 			document.getElementById("tertutup").checked = true;
 			document.getElementById('num').style.display='block';
 		}
-		if(y == "1") {
-			document.getElementById("1").selected = true;
-		}
-		else if(y == "2") {
-			document.getElementById("2").selected = true;
-		}
-		else {
-			document.getElementById("3").selected = true;
-		}
-		
+		document.getElementById(y).selected = true;
 	}
 	function programType(x) {
 		if(x==0) {

@@ -20,7 +20,7 @@
 	<link rel="stylesheet" href="/PMS/css/bulma.min.css" />
 	
 </head>
-<body onload="programType(x,y,z)">
+<body onload="programType(x,y)">
 <%	String email = (String)session.getAttribute("currentSessionOrganizerEmail");
 	String name = (String)session.getAttribute("currentSessionOrganizerName");
 	String id = (String)session.getAttribute("currentSessionOrganizerID");
@@ -66,8 +66,10 @@
 			                        <li><a class="" href="/PMS/organizer/index.jsp">Laman Utama</a></li>
 			                        <li><a>Profil</a>
 				                        <ul>
-				                        	<li><a class="" href="/PMS/OrganizerController?action=viewAccount&orgEmail=<c:out value="<%=email%>"/>">Profil Anda</a></li>
-				                        	<li><a href="/PMS/OrganizerController?action=updateAccount&orgEmail=<c:out value="<%=email%>" />">Pinda Profil</a></li>
+				                        	<li><a class="" href="/PMS/OrganizerController?action=viewAccount&orgEmail=<c:out value="<%=email%>"/>">
+				                        	Profil Anda</a></li>
+				                        	<li><a href="/PMS/OrganizerController?action=updateAccount&orgEmail=<c:out value="<%=email%>" />">
+				                        	Pinda Profil</a></li>
 				                        </ul>
 			                        </li>
 			                    </ul>
@@ -76,7 +78,8 @@
 			                    </p>
 			                    <ul class="menu-list">
 			                        <li><a class="" href="/PMS/ProgramController?action=insert">Daftar Program</a></li>
-			                        <li><a class="is-active has-text-white" href="/PMS/ProgramController?action=myProgram&orgID=<c:out value="<%=id%>"/>">MyProgram</a>	</li>
+			                        <li><a class="is-active has-text-white" href="/PMS/ProgramController?action=myProgram&orgID=<c:out value="<%=id%>"/>">
+			                        MyProgram</a>	</li>
 			                    </ul>
 			                </aside>
 						</div>
@@ -112,7 +115,7 @@
 		                            <p class="content is-medium"><c:out value="${program.progEndTime}" /></p>
 		                            
 		                            <label class="label">Tempat Program</label>
-		                            <p class="content is-medium" id="venue"></p>
+		                            <p class="content is-medium"><c:out value="${venueProgram.venueName}" /></p>
 		                            
 		                            <div class="content" id="num" style="display:none">
 		                            	<label class="label">Jumlah Peserta</label>
@@ -128,8 +131,15 @@
 		                            <p class="content is-medium"><strong><c:out value="${statusProgram.status}" /></strong></p>
 		                            
 		                           	<div class="buttons is-right">
-									 	<a id="status" style="display:none" class="button is-medium is-info is-rounded" href="ProgramController?action=updateProgram&progID=<c:out value="${program.progID}"/>">Pinda Program</a>
-										<a onclick="return confirm('Anda pasti batal program ini? 😮');" class="button is-medium is-danger is-rounded" href="ProgramController?action=deleteProgram&progID=<c:out value="${program.progID}"/>&orgID=<c:out value="<%=id%>"/> ">Batal Program</a>
+									 	<a id="status" style="display:none" class="button is-medium is-info is-rounded" 
+									 	href="ProgramController?action=updateProgram&progID=<c:out value="${program.progID}"/>">Pinda Program</a>
+									 	<a onclick="return confirm('Anda pasti untuk membuat pindaan pada program ini? 😮  \nStatus program ini akan bertukar ke DIPROSES jika anda klik OK');" 
+									 	id="diproses" style="display:none" 
+									 	class="button is-medium is-info is-rounded" 
+									 	href="ProgramController?action=updateARProgram&progID=<c:out value="${program.progID}"/>">Pinda Program</a>
+										<a onclick="return confirm('Anda pasti batal program ini? 😮');" class="button is-medium is-danger is-rounded" 
+										href="ProgramController?action=deleteProgram&progID=<c:out value="${program.progID}"/>&orgID=<c:out value="<%=id%>"/> ">
+										Batal Program</a>
 		                           	</div>
 		                        </div>
 		                    </div>
@@ -142,8 +152,7 @@
 	<script type="text/javascript">
 	var x = new String('${program.progType}');
 	var y = new String('${statusProgram.status}');
-	var z = new String('${program.venueID}');
-	function programType(x,y,z) {
+	function programType(x,y) {
 		if(x == "Umum") {
 			document.getElementById('num').style.display='none';
 			document.getElementById('vip').style.display='block';
@@ -155,19 +164,13 @@
 		if(y == "DIPROSES") {
 			document.getElementById('status').style.display='block';
 		}
+		else if(y == "LULUS") {
+			document.getElementById('diproses').style.display='block';
+		}
 		else {
+			document.getElementById('diproses').style.display='none';
 			document.getElementById('status').style.display='none';
 		}
-		if(z == "1") {
-			var venue = "Dalam Masjid";
-		}
-		else if(z == "2") {
-			var venue = "Luar Masjid";
-		}
-		else {
-			var venue = "Bilik Mesyuarat";
-		}
-		document.getElementById("venue").innerHTML=venue;
 	}
 	document.addEventListener('DOMContentLoaded', () => {
 
