@@ -57,15 +57,20 @@ public class StatusController extends HttpServlet {
         	String progID = request.getParameter("progID");
             forward = VALIDATE_PROGRAM;
             ProgramBean program = dao.getProgramByID(progID);
-            request.setAttribute("program", program); 
-            request.setAttribute("statusProgram", statusdao.getStatusAndOrgName(progID,program.getOrgID())); 
+            request.setAttribute("program", program);
+            if(program.getAdmID() == null) {
+            	request.setAttribute("statusProgram", statusdao.getStatusAndOrgName(progID,program.getOrgID())); 
+            }
+            else {
+            	request.setAttribute("statusProgram", statusdao.getStatusAndAdminName(progID,program.getAdmID())); 
+            }
             request.setAttribute("venueProgram", venuedao.getVenueProgramByID(program.getVenueID())); 
             if(program.getProgType().equalsIgnoreCase("Umum")) {
             	OpenBean open = opendao.getOpenProgramByID(progID);
             	request.setAttribute("openProgram", open); 
             }
             else {
-            	ClosedBean closed = closeddao.getOpenProgramByID(progID);
+            	ClosedBean closed = closeddao.getClosedProgramByID(progID);
             	request.setAttribute("closedProgram", closed); 
             }
         }

@@ -16,10 +16,30 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Laman Utama</title>
+	<title>Daftar Program</title>
 	<link rel="stylesheet" href="/PMS/css/bulma.min.css" />
+	<style>
+		/* Style the tab content */
+		.tabcontent {
+		    display: none;
+		    padding: 6px 12px;
+		    -webkit-animation: fadeEffect 1s;
+		    animation: fadeEffect 1s;
+		}
+		
+		/* Fade in tabs */
+		@-webkit-keyframes fadeEffect {
+		    from {opacity: 0;}
+		    to {opacity: 1;}
+		}
+		
+		@keyframes fadeEffect {
+		    from {opacity: 0;}
+		    to {opacity: 1;}
+		}
+	</style>
 </head>
-<body>
+<body >
 <%	String email = (String)session.getAttribute("currentSessionAdminEmail");
 	String name = (String)session.getAttribute("currentSessionAdminName");
 	String id = (String)session.getAttribute("currentSessionAdminID");
@@ -37,13 +57,14 @@
 		</div>
 		<div id="navbarBasicExample" class="navbar-menu">
 			<div class="navbar-start is-hidden-desktop">
-				<a class="navbar-item is-active" href="/PMS/admin/index.jsp">Laman Utama</a>
+				<a class="navbar-item" href="/PMS/admin/index.jsp">Laman Utama</a>
 				<a class="navbar-item" href="/PMS/AdminController?action=viewAccount&admEmail=<c:out value="<%=email%>"/>">Profil Anda</a>
 				<a class="navbar-item" href="/PMS/StatusController?action=listProgram">Pengesahan Program</a>
 				<a class="navbar-item" href="/PMS/AdminController?action=registerAdmins">Daftar Pentadbir</a>
 				<a class="navbar-item" href="/PMS/AdminController?action=viewAdmins&admID=<c:out value="<%=id%>" />">Papar Pentadbir Bawahan</a>
 				<a class="navbar-item" href="/PMS/ProgramAdminController?action=insert">Daftar Program</a>
-				<a class="navbar-item" href="/PMS/ProgramAdminController?action=myProgram&admID=<c:out value="<%=id%>" />">MyProgram</a>
+				<a class="navbar-item is-active" href="/PMS/ProgramAdminController?action=myProgram&admID=<c:out value="<%=id%>" />">MyProgram</a>
+				<a class="navbar-item" href="/PMS/AdminController?action=viewReport">Papar Laporan</a>
 			</div>
 			<div class="navbar-end">
 				<div class="navbar-item">
@@ -65,7 +86,7 @@
 			                        Umum
 			                    </p>
 			                    <ul class="menu-list">
-			                        <li><a class="is-active has-text-white" href="/PMS/admin/index.jsp">Laman Utama</a></li>
+			                        <li><a class="" href="/PMS/admin/index.jsp">Laman Utama</a></li>
 			                        <li><a>Profil</a>
 				                        <ul>
 				                        	<li><a class="" href="/PMS/AdminController?action=viewAccount&admEmail=<c:out value="<%=email%>"/>">Profil Anda</a></li>
@@ -90,7 +111,7 @@
 			                    </p>
 			                    <ul class="menu-list">
 			                        <li><a class="" href="/PMS/ProgramAdminController?action=insert">Daftar Program</a></li>
-			                        <li><a class="" href="/PMS/ProgramAdminController?action=myProgram&admID=<c:out value="<%=id%>"/>">MyProgram</a>	</li>
+			                        <li><a class="is-active has-text-white" href="/PMS/ProgramAdminController?action=myProgram&admID=<c:out value="<%=id%>"/>">MyProgram</a>	</li>
 			                    </ul>
 			                    <p class="menu-label">
 			                        Laporan
@@ -105,15 +126,71 @@
 					<div class="column is-7">
 						 <section class="hero is-white">
 		                    <div class="hero-body">
-		                        <div class="container">
-		                            <h1 class="title has-text-dark">
-		                                Selamat Datang 👋, <%= name %>
-		                            </h1>
-		                            
-		                            <h2 class="subtitle has-text-dark">
-		                                Bagaimana dengan keadaan awak hari ini? <br/>
-		                                Semoga awak ceria-ceria selalu 😁
-		                            </h2>
+		                        <div class="container is-widescreen">
+		                        	<div class="tabs is-toggle is-toggle-rounded is-fullwidth">
+									    <ul>
+									    	<li class="tablinks" onclick="openProgram(event, 'Diproses')"><a>Diproses</a></li>
+										    <li class="tablinks" onclick="openProgram(event, 'Lulus')"><a>Lulus</a></li>
+										    <li class="tablinks" onclick="openProgram(event, 'Gagal')"><a>Gagal</a></li>
+									    </ul>
+									</div>
+								    <div id="Diproses" class="tabcontent">
+								      <table class="table is-hoverable is-fullwidth">
+								      	<thead>
+								      		<tr>
+										      	<th>Bil.</th>
+										        <th>Nama Program</th>
+									      </tr>
+								      	</thead>
+									  <c:forEach items="${programsDiproses}" var="program" varStatus="theCount">
+									  	<tbody>
+									  		<tr>
+									  			<th><c:out value="${theCount.count}" /></th>
+									  			<td><a href="ProgramAdminController?action=viewProgram&progID=<c:out value="${program.progID}" />"><c:out value="${program.progName}" /></a></td>
+									  		</tr>
+									  	</tbody>
+									    </c:forEach>
+									</table>
+								    </div>
+								    <div id="Lulus" class="tabcontent">
+								      <table class="table is-hoverable is-fullwidth">
+									    <thead>
+								      		<tr>
+										      	<th>Bil.</th>
+										        <th>Nama Program</th>
+									      </tr>
+								      	</thead>
+									  <c:forEach items="${programsLulus}" var="program" varStatus="theCount">
+									  	<tbody>
+									  		<tr>
+									  			<th><c:out value="${theCount.count}" /></th>
+									  			<td><a href="ProgramAdminController?action=viewProgram&progID=<c:out value="${program.progID}" />"><c:out value="${program.progName}" /></a></td>
+									  		</tr>
+									  	</tbody>
+									    </c:forEach>
+									   </table>
+								    </div>
+								    <div id="Gagal" class="tabcontent">
+								    	<table class="table is-hoverable is-fullwidth">
+										    <thead>
+									      		<tr>
+											      	<th>Bil.</th>
+											        <th>Nama Program</th>
+										      </tr>
+									      	</thead>
+										  <c:forEach items="${programsGagal}" var="program" varStatus="theCount">
+										  	<tbody>
+										  		<tr>
+										  			<th><c:out value="${theCount.count}" /></th>
+										  			<td><a href="ProgramAdminController?action=viewProgram&progID=<c:out value="${program.progID}" />"><c:out value="${program.progName}" /></a></td>
+										  		</tr>
+										  	</tbody>
+										    </c:forEach>
+										</table>
+								    </div>
+								    <div class="buttons is-right">
+								    	<a class="button is-medium is-info is-rounded" href="ProgramAdminController?action=insert">Daftar Program</a>
+								    </div>
 		                        </div>
 		                    </div>
 		                </section>
@@ -123,6 +200,20 @@
 		</div><!-- end container -->
 	</section>
 	<script type="text/javascript">
+	function openProgram(evt, status) {
+	    var i, tabcontent, tablinks;
+	    tabcontent = document.getElementsByClassName("tabcontent");
+	    for (i = 0; i < tabcontent.length; i++) {
+	        tabcontent[i].style.display = "none";
+	    }
+	    tablinks = document.getElementsByClassName("tablinks");
+	    for (i = 0; i < tablinks.length; i++) {
+	        tablinks[i].className = tablinks[i].className.replace(" is-active", "");
+	    }
+	    document.getElementById(status).style.display = "block";
+	    evt.currentTarget.className += " is-active";
+	}
+
 	document.addEventListener('DOMContentLoaded', () => {
 
 		  // Get all "navbar-burger" elements
@@ -148,6 +239,10 @@
 		  }
 
 		});
+	</script>
+	<script>
+		var mybtn = document.getElementsByClassName("tablinks")[0];
+		mybtn.click();
 	</script>
 	<footer class="footer">
 	  <div class="content has-text-centered">

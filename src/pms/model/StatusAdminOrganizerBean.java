@@ -17,6 +17,13 @@ public class StatusAdminOrganizerBean {
 		validateAdmName = admin.getAdmName();
 		validateOrgName = organizer.getOrgName();
 	}
+	
+	public StatusAdminOrganizerBean(StatusBean status, AdminBean admin, AdminBean organizer) {
+		validateStatus = status.getStatus();
+		validateStatusDate = status.getStatusDate();
+		validateAdmName = admin.getAdmName();
+		validateOrgName = organizer.getAdmName();
+	}
 
 	public String getValidateStatus() {
 		return validateStatus;

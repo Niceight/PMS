@@ -109,7 +109,7 @@ public class ProgramDAO {
 		  		program.setProgType(rs.getString("progType"));
 		  		program.setOrgID(rs.getString("orgID"));
 		  		program.setVenueID(rs.getString("venueID"));
-		  		
+		  		program.setAdmID(rs.getString("admID"));
 	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
@@ -117,6 +117,78 @@ public class ProgramDAO {
 	
 	    return program;
 	}
+	
+	//list pending program by id (admin)
+		public List<ProgramBean> getAllAdminPendingProgram(String admID) {
+			
+		  List<ProgramBean> programs = new ArrayList<ProgramBean>();
+		  
+		  try {
+			currentCon = ConnectionManager.getConnection();
+			stmt = currentCon.createStatement();
+			String q = "select progid, progname from program p join status s using (progid) where (progid, statusdate) in ( select progid, max(statusdate) from status group by progid) and status='DIPROSES' and p.admid='" + admID + "'";
+			ResultSet rs = stmt.executeQuery(q);
+		  
+			  while (rs.next()) {
+				  ProgramBean program = new ProgramBean();
+				  program.setProgID(rs.getString("progID"));
+				  program.setProgName(rs.getString("progName"));
+				  
+			      programs.add(program);
+			  }
+		  } catch (SQLException e) {
+		      e.printStackTrace();
+		  }
+		  return programs;
+		}
+		
+		//list approve program by id (admin)
+		public List<ProgramBean> getAllAdminApproveProgram(String admID) {
+				
+		  List<ProgramBean> programs = new ArrayList<ProgramBean>();
+		  
+		  try {
+			currentCon = ConnectionManager.getConnection();
+			stmt = currentCon.createStatement();
+			String q = "select progid, progname from program p join status s using (progid) where (progid, statusdate) in ( select progid, max(statusdate) from status group by progid) and status='LULUS' and p.admid='" + admID + "'";
+			ResultSet rs = stmt.executeQuery(q);
+		  
+			  while (rs.next()) {
+				  ProgramBean program = new ProgramBean();
+				  program.setProgID(rs.getString("progID"));
+				  program.setProgName(rs.getString("progName"));
+				  
+			      programs.add(program);
+			  }
+		  } catch (SQLException e) {
+		      e.printStackTrace();
+		  }
+		  return programs;
+		}
+		
+		//list reject program by id (admin)
+		public List<ProgramBean> getAllAdminRejectProgram(String admID) {
+			
+		  List<ProgramBean> programs = new ArrayList<ProgramBean>();
+		  
+		  try {
+			currentCon = ConnectionManager.getConnection();
+			stmt = currentCon.createStatement();
+			String q = "select progid, progname from program p join status s using (progid) where (progid, statusdate) in ( select progid, max(statusdate) from status group by progid) and status='GAGAL' and p.admid='" + admID + "'";
+			ResultSet rs = stmt.executeQuery(q);
+		  
+			  while (rs.next()) {
+				  ProgramBean program = new ProgramBean();
+				  program.setProgID(rs.getString("progID"));
+				  program.setProgName(rs.getString("progName"));
+				  
+			      programs.add(program);
+			  }
+		  } catch (SQLException e) {
+		      e.printStackTrace();
+		  }
+		  return programs;
+		}
 	
 	//delete program by id
 	public void deleteProgramByID(String progID) {

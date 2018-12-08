@@ -28,12 +28,13 @@ public class OpenDAO {
 		String progType = bean.getProgType();
 		String orgID = bean.getOrgID();
 		String venueID = bean.getVenueID();
+		String admID = bean.getAdmID();
 		String vipName = bean.getVipName();
 
 		try {
 			currentCon = ConnectionManager.getConnection();
-			ps=currentCon.prepareStatement("insert into PROGRAM (PROGNAME, PROGSTARTDATE, PROGENDDATE, PROGSTARTTIME, PROGENDTIME, PROGTYPE, ORGID, VENUEID)"
-					+ "values(?,?,?,?,?,?,?,?)");
+			ps=currentCon.prepareStatement("insert into PROGRAM (PROGNAME, PROGSTARTDATE, PROGENDDATE, PROGSTARTTIME, PROGENDTIME, PROGTYPE, ORGID, VENUEID, ADMID)"
+					+ "values(?,?,?,?,?,?,?,?,?)");
 			ps.setString(1,progName);
 			ps.setDate(2,progStartDate);
 			ps.setDate(3,progEndDate);
@@ -42,6 +43,7 @@ public class OpenDAO {
 			ps.setString(6,progType);
 			ps.setString(7,orgID);
 			ps.setString(8,venueID);
+			ps.setString(9,admID);
 			ps.executeUpdate();
 
 			stmt = currentCon.createStatement();
@@ -92,6 +94,7 @@ public class OpenDAO {
 		String progType = bean.getProgType();
 		String orgID = bean.getOrgID();
 		String venueID = bean.getVenueID();
+		String admID = bean.getAdmID();
 		String vipName = bean.getVipName();
 		
 		
@@ -107,6 +110,7 @@ public class OpenDAO {
 					+ "PROGTYPE='" + progType 
 					+ "', ORGID='" + orgID 
 					+ "', VENUEID='" + venueID 
+					+ "', ADMID='" + admID 
 					+ "' WHERE PROGID= '" + progID + "'";
 			stmt = currentCon.createStatement();
 	        stmt.executeUpdate(searchQuery);

@@ -62,6 +62,9 @@
 				<a class="navbar-item is-active" href="/PMS/StatusController?action=listProgram">Pengesahan Program</a>
 				<a class="navbar-item" href="/PMS/AdminController?action=registerAdmins">Daftar Pentadbir</a>
 				<a class="navbar-item" href="/PMS/AdminController?action=viewAdmins&admID=<c:out value="<%=id%>" />">Papar Pentadbir Bawahan</a>
+				<a class="navbar-item" href="/PMS/ProgramAdminController?action=insert">Daftar Program</a>
+				<a class="navbar-item" href="/PMS/ProgramAdminController?action=myProgram&admID=<c:out value="<%=id%>" />">MyProgram</a>
+				<a class="navbar-item" href="/PMS/AdminController?action=viewReport">Papar Laporan</a>
 			</div>
 			<div class="navbar-end">
 				<div class="navbar-item">
@@ -107,8 +110,8 @@
 			                        Program
 			                    </p>
 			                    <ul class="menu-list">
-			                        <li><a class="" href="/PMS/ProgramController?action=insert">Daftar Program</a></li>
-			                        <li><a class="" href="/PMS/ProgramController?action=myProgram&admID=<c:out value="<%=id%>"/>">MyProgram</a>	</li>
+			                        <li><a class="" href="/PMS/ProgramAdminController?action=insert">Daftar Program</a></li>
+			                        <li><a class="" href="/PMS/ProgramAdminController?action=myProgram&admID=<c:out value="<%=id%>"/>">MyProgram</a>	</li>
 			                    </ul>
 			                    <p class="menu-label">
 			                        Laporan

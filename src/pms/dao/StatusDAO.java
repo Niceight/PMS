@@ -160,6 +160,43 @@ public class StatusDAO {
 		  return new StatusAdminOrganizerBean(status,admin,organizer);
 	}
 	
+	//get newest status program and its organizer name
+		public StatusAdminOrganizerBean getStatusAndAdminName(String progID, String admID) {
+			StatusBean status = new StatusBean();
+			AdminBean admin = new AdminBean();
+			AdminBean organizer = new AdminBean();
+
+			try {
+				currentCon = ConnectionManager.getConnection();
+				stmt = currentCon.createStatement();
+				String q = "select * "
+						+ "from (select s.status,s.statusdate,a.admname updateby,d.admname createby "
+						+ "from admin a "
+						+ "join status s "
+						+ "on a.admid = s.admid "
+						+ "join program p "
+						+ "on s.progid = p.progid "
+						+ "join admin d "
+						+ "on p.admid = d.admid "
+						+ "where p.progid = '" + progID + "' "
+						+ "and d.admid='" + admID + "' "
+						+ "order by 2 desc) "
+						+ "where rownum = 1";
+
+				ResultSet rs = stmt.executeQuery(q);
+			  
+				  while (rs.next()) {
+					  status.setStatus(rs.getString("status"));
+					  status.setStatusDate(rs.getDate("statusDate"));
+					  admin.setAdmName(rs.getString("updateby"));
+					  organizer.setAdmName(rs.getString("createby"));
+				  }
+			  } catch (SQLException e) {
+			      e.printStackTrace();
+			  }
+			  return new StatusAdminOrganizerBean(status,admin,organizer);
+		}
+	
 	//update program to PENDING
 	public void pendingProgram(String progID, String admID) {
 		try {

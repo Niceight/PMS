@@ -1,12 +1,15 @@
 package pms.controller;
 
 import java.io.IOException;
-import javax.servlet.annotation.WebServlet;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import pms.dao.ClosedDAO;
 import pms.dao.OpenDAO;
@@ -18,26 +21,25 @@ import pms.model.OpenBean;
 import pms.model.ProgramBean;
 
 /**
- * Servlet implementation class ProgramController
+ * Servlet implementation class ProgramAdminController
  */
-@WebServlet("/ProgramController")
-public class ProgramController extends HttpServlet {
+@WebServlet("/ProgramAdminController")
+public class ProgramAdminController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static String INSERT = "/organizer/bookProgram.jsp";
-    private static String LIST_PROGRAM = "/organizer/myProgram.jsp";
-    private static String VIEW_PROGRAM = "/organizer/viewProgram.jsp";
-    private static String UPDATE_PROGRAM = "/organizer/updateProgram.jsp";
+	private static String INSERT = "/admin/bookProgram.jsp";
+    private static String LIST_PROGRAM = "/admin/myProgram.jsp";
+    private static String VIEW_PROGRAM = "/admin/viewProgram.jsp";
+    private static String UPDATE_PROGRAM = "/admin/updateProgram.jsp";
     private ProgramDAO dao;
     private OpenDAO opendao;
     private ClosedDAO closeddao;
     private StatusDAO statusdao;
     private VenueDAO venuedao;
-    String forward="";
-    
+    String forward="";   
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProgramController() {
+    public ProgramAdminController() {
         super();
         dao = new ProgramDAO();
         opendao = new OpenDAO();
@@ -50,15 +52,14 @@ public class ProgramController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		String action = request.getParameter("action");
         
         if (action.equalsIgnoreCase("myProgram")){
-            String orgID = request.getParameter("orgID");
+            String admID = request.getParameter("admID");
             forward = LIST_PROGRAM;
-            request.setAttribute("programsDiproses", dao.getAllOrganizerPendingProgram(orgID)); 
-            request.setAttribute("programsLulus", dao.getAllOrganizerApproveProgram(orgID)); 
-            request.setAttribute("programsGagal", dao.getAllOrganizerRejectProgram(orgID)); 
+            request.setAttribute("programsDiproses", dao.getAllAdminPendingProgram(admID)); 
+            request.setAttribute("programsLulus", dao.getAllAdminApproveProgram(admID)); 
+            request.setAttribute("programsGagal", dao.getAllAdminRejectProgram(admID)); 
         }
         else if(action.equalsIgnoreCase("viewProgram")){
         	String progID = request.getParameter("progID");
@@ -110,12 +111,12 @@ public class ProgramController extends HttpServlet {
         }
         else if(action.equalsIgnoreCase("deleteProgram")) {
         	String progID = request.getParameter("progID");
-        	String orgID = request.getParameter("orgID");
+        	String admID = request.getParameter("admID");
         	dao.deleteProgramByID(progID);
         	forward = LIST_PROGRAM;
-        	request.setAttribute("programsDiproses", dao.getAllOrganizerPendingProgram(orgID)); 
-            request.setAttribute("programsLulus", dao.getAllOrganizerApproveProgram(orgID)); 
-            request.setAttribute("programsGagal", dao.getAllOrganizerRejectProgram(orgID)); 
+        	request.setAttribute("programsDiproses", dao.getAllAdminPendingProgram(admID)); 
+            request.setAttribute("programsLulus", dao.getAllAdminApproveProgram(admID)); 
+            request.setAttribute("programsGagal", dao.getAllAdminRejectProgram(admID)); 
         }
         else {
             forward = INSERT;
@@ -124,12 +125,11 @@ public class ProgramController extends HttpServlet {
         RequestDispatcher view = request.getRequestDispatcher(forward);
         view.forward(request, response);
 	}
-	
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		OpenBean open = new OpenBean();
 		ClosedBean closed = new ClosedBean();
 		
@@ -139,7 +139,7 @@ public class ProgramController extends HttpServlet {
 		String progStartTime = request.getParameter("progStartTime");
 		String progEndTime = request.getParameter("progEndTime");
 		String progType = request.getParameter("progType");
-		String orgID = request.getParameter("orgID");
+		String admID = request.getParameter("admID");
 		
 		SimpleDateFormat parsedate = new SimpleDateFormat("yyyy-MM-dd");
 		SimpleDateFormat time = new SimpleDateFormat("hh:mm");
@@ -162,7 +162,7 @@ public class ProgramController extends HttpServlet {
 				open.setProgStartTime(startTime);
 				open.setProgEndTime(endTime);
 				open.setProgType(progType);
-				open.setOrgID(request.getParameter("orgID"));
+				open.setAdmID(request.getParameter("admID"));
 				open.setVenueID(request.getParameter("venueID"));
 				open.setVipName(request.getParameter("vipName"));
 				
@@ -177,9 +177,9 @@ public class ProgramController extends HttpServlet {
 		        }
 			        
 		        forward = LIST_PROGRAM;
-		        request.setAttribute("programsDiproses", dao.getAllOrganizerPendingProgram(orgID)); 
-	            request.setAttribute("programsLulus", dao.getAllOrganizerApproveProgram(orgID)); 
-	            request.setAttribute("programsGagal", dao.getAllOrganizerRejectProgram(orgID)); 
+		        request.setAttribute("programsDiproses", dao.getAllAdminPendingProgram(admID)); 
+	            request.setAttribute("programsLulus", dao.getAllAdminApproveProgram(admID)); 
+	            request.setAttribute("programsGagal", dao.getAllAdminRejectProgram(admID)); 
 		        RequestDispatcher view = request.getRequestDispatcher(forward);
 		        view.forward(request, response);
 			}
@@ -190,7 +190,7 @@ public class ProgramController extends HttpServlet {
 				closed.setProgStartTime(startTime);
 				closed.setProgEndTime(endTime);
 				closed.setProgType(progType);
-				closed.setOrgID(request.getParameter("orgID"));
+				closed.setAdmID(request.getParameter("admID"));
 				closed.setVenueID(request.getParameter("venueID"));
 				closed.setNumParticipant(Integer.parseInt(request.getParameter("numParticipant")));
 				
@@ -205,9 +205,9 @@ public class ProgramController extends HttpServlet {
 		        }
 		        
 		        forward = LIST_PROGRAM;
-		        request.setAttribute("programsDiproses", dao.getAllOrganizerPendingProgram(orgID)); 
-	            request.setAttribute("programsLulus", dao.getAllOrganizerApproveProgram(orgID)); 
-	            request.setAttribute("programsGagal", dao.getAllOrganizerRejectProgram(orgID));  
+		        request.setAttribute("programsDiproses", dao.getAllAdminPendingProgram(admID)); 
+	            request.setAttribute("programsLulus", dao.getAllAdminApproveProgram(admID)); 
+	            request.setAttribute("programsGagal", dao.getAllAdminRejectProgram(admID)); 
 		        RequestDispatcher view = request.getRequestDispatcher(forward);
 		        view.forward(request, response);
 			}
@@ -216,4 +216,5 @@ public class ProgramController extends HttpServlet {
 			e.printStackTrace();
 		} 
 	}
+
 }

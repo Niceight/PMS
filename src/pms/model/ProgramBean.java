@@ -13,6 +13,7 @@ public class ProgramBean {
     private String progType;
     private String orgID;
     private String venueID;
+    private String admID;
     
 	public String getProgID() {
 		return progID;
@@ -41,6 +42,9 @@ public class ProgramBean {
 	public String getVenueID() {
 		return venueID;
 	}
+	public String getAdmID() {
+		return admID;
+	}
 	public void setProgID(String progID) {
 		this.progID = progID;
 	}
@@ -67,5 +71,8 @@ public class ProgramBean {
 	}
 	public void setVenueID(String venueID) {
 		this.venueID = venueID;
+	}
+	public void setAdmID(String admID) {
+		this.admID = admID;
 	}
 }
