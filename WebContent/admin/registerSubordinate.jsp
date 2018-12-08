@@ -131,9 +131,17 @@
 			                                </div>
 			                            </div>
 			                            <div class="field">
-			                                <div class="control">
-			                                    <input type="hidden" name="svID" value="<c:out value="<%=id%>"/>"/>
-			                                </div>
+			                        		<label class="label">Pengurus</label>
+			                        		<div class="control">
+			                        			<div class="select is-medium is-rounded is-fullwidth">
+				                                    <select name="svID" required>
+													    <option value="0">Pilih Pengurus</option>
+													    <c:forEach items="${managers}" var="manager">
+															    <option id="<c:out value="${manager.admID}" />" value="<c:out value="${manager.admID}" />"><c:out value="${manager.admName}" /></option>		  	
+														</c:forEach>
+												  	</select>
+				                                </div>
+			                        		</div>
 			                            </div>
 			                            <div class="field">
 			                                <div class="control">
