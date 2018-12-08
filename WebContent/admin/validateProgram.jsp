@@ -19,7 +19,7 @@
 	<title>Pengesahan Program</title>
 	<link rel="stylesheet" href="/PMS/css/bulma.min.css" />
 </head>
-<body onload="programType(x)">
+<body onload="programType(x,y)">
 <%	String email = (String)session.getAttribute("currentSessionAdminEmail");
 	String name = (String)session.getAttribute("currentSessionAdminName");
 	String id = (String)session.getAttribute("currentSessionAdminID");
@@ -133,7 +133,7 @@
 		                            <p class="content is-medium"><c:out value="${program.progEndTime}" /></p>
 		                            
 		                            <label class="label">Tempat Program</label>
-		                            <p class="content is-medium" id="venue"></p>
+		                            <p class="content is-medium" id="venue"><c:out value="${venueProgram.venueName}" /></p>
 		                            
 		                            <div class="content" id="num" style="display:none">
 		                            	<label class="label">Jumlah Peserta</label>
@@ -155,8 +155,15 @@
 		                            <p class="content is-medium"><c:out value="${statusProgram.validateStatusDate}" /></p>
 		                            
 		                           	<div class="buttons is-right">
-									 	<a onclick="return confirm('Anda pasti LULUS-kan program ini? 😃');"class="button is-medium is-success is-rounded" href="StatusController?action=approveProgram&progID=<c:out value="${program.progID}"/>&admID=<c:out value="<%=id%>"/>">Lulus ✔️</a>
-										<a onclick="return confirm('Anda pasti GAGAL-kan program ini? 😮');" class="button is-medium is-danger is-rounded" href="StatusController?action=rejectProgram&progID=<c:out value="${program.progID}"/>&admID=<c:out value="<%=id%>"/>">Gagal ❌</a>
+		                           		<a id="diproses" style="display:none" onclick="return confirm('Anda pasti DIPROSES-kan program ini? 😮');"class="button is-medium is-warning is-rounded" 
+									 	href="StatusController?action=pendingProgram&progID=<c:out value="${program.progID}"/>&admID=<c:out value="<%=id%>"/>">
+									 	Diproses ⚪️</a>
+									 	<a id="lulus" style="display:none" onclick="return confirm('Anda pasti LULUS-kan program ini? 😃');"class="button is-medium is-success is-rounded" 
+									 	href="StatusController?action=approveProgram&progID=<c:out value="${program.progID}"/>&admID=<c:out value="<%=id%>"/>">
+									 	Lulus ✔️</a>
+										<a id="gagal" style="display:none" onclick="return confirm('Anda pasti GAGAL-kan program ini? 😮');" class="button is-medium is-danger is-rounded" 
+										href="StatusController?action=rejectProgram&progID=<c:out value="${program.progID}"/>&admID=<c:out value="<%=id%>"/>">
+										Gagal ❌</a>
 		                           	</div>
 		                        </div>
 		                    </div>
@@ -168,7 +175,8 @@
 	</section>
 	<script type="text/javascript">
 	var x = new String('${program.progType}');
-	function programType(x) {
+	var y = new String('${statusProgram.validateStatus}');
+	function programType(x,y) {
 		if(x == "Umum") {
 			document.getElementById('num').style.display='none';
 			document.getElementById('vip').style.display='block';
@@ -176,6 +184,18 @@
 		else {
 			document.getElementById('num').style.display='block';
 			document.getElementById('vip').style.display='none';
+		}
+		if(y == "DIPROSES") {
+			document.getElementById('lulus').style.display='block';
+			document.getElementById('gagal').style.display='block';
+		}
+		else if(y == "LULUS") {
+			document.getElementById('diproses').style.display='block';
+			document.getElementById('gagal').style.display='block';
+		}
+		else {
+			document.getElementById('lulus').style.display='block';
+			document.getElementById('diproses').style.display='block';
 		}
 	}
 	document.addEventListener('DOMContentLoaded', () => {
@@ -212,29 +232,5 @@
 	    <p>Source code on <a target="_blank" href="https://github.com/Niceight/PMS">GitHub</a></p>
 	  </div>
 	</footer>
-
-									
-<%-- <p>Program ID : <c:out value="${program.progID}" /></p>
-<p>Nama Penganjur : <c:out value="${statusProgram.validateOrgName}" /></p>
-<p>Nama Program : <c:out value="${program.progName}" /></p>
-<p>Jenis Program : <c:out value="${program.progType}" /></p>
-<p>Tarikh Mula Program : <c:out value="${program.progStartDate}" /></p>
-<p>Tarikh Tamat Program : <c:out value="${program.progEndDate}" /></p>
-<p>Masa Mula Program : <c:out value="${program.progStartTime}" /></p>
-<p>Masa Tamat Program : <c:out value="${program.progEndTime}" /></p>
-<p>Tempat Program : <c:out value="${program.venueID}" /></p>
-<div id="num" style="display:none">
-	<p>Jumlah Peserta : <c:out value="${closedProgram.numParticipant}" /></p>
-</div>
-<div id="vip" style="display:none">
-	<p>Nama VIP : <c:out value="${openProgram.vipName}" /></p>
-</div>
-<p>Status Program : <b><c:out value="${statusProgram.validateStatus}" /></b></p>
-<p>Dikemaskini Oleh : <c:out value="${statusProgram.validateAdmName}" /></p>
-<p>Tarikh kemaskini : <c:out value="${statusProgram.validateStatusDate}" /></p>
-
- <br/><br/>
- <p><a href="StatusController?action=approveProgram&progID=<c:out value="${program.progID}"/>&admID=<c:out value="<%=id%>"/>"><b>Lulus</b></a></p>
- <p><a href="StatusController?action=rejectProgram&progID=<c:out value="${program.progID}"/>&admID=<c:out value="<%=id%>"/>"><b>Gagal</b></a></p> --%>
 </body>
 </html>

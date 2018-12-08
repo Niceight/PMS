@@ -13,6 +13,7 @@ import pms.dao.ClosedDAO;
 import pms.dao.OpenDAO;
 import pms.dao.ProgramDAO;
 import pms.dao.StatusDAO;
+import pms.dao.VenueDAO;
 /*import pms.model.StatusBean;*/
 import pms.model.ClosedBean;
 import pms.model.OpenBean;
@@ -30,6 +31,7 @@ public class StatusController extends HttpServlet {
     private OpenDAO opendao;
     private ClosedDAO closeddao;
     private StatusDAO statusdao;
+    private VenueDAO venuedao;
     String forward="";
        
     /**
@@ -41,6 +43,7 @@ public class StatusController extends HttpServlet {
         opendao = new OpenDAO();
         closeddao = new ClosedDAO();
         statusdao = new StatusDAO();
+        venuedao = new VenueDAO();
     }
 
 	/**
@@ -56,6 +59,7 @@ public class StatusController extends HttpServlet {
             ProgramBean program = dao.getProgramByID(progID);
             request.setAttribute("program", program); 
             request.setAttribute("statusProgram", statusdao.getStatusAndOrgName(progID,program.getOrgID())); 
+            request.setAttribute("venueProgram", venuedao.getVenueProgramByID(program.getVenueID())); 
             if(program.getProgType().equalsIgnoreCase("Umum")) {
             	OpenBean open = opendao.getOpenProgramByID(progID);
             	request.setAttribute("openProgram", open); 
@@ -64,6 +68,15 @@ public class StatusController extends HttpServlet {
             	ClosedBean closed = closeddao.getOpenProgramByID(progID);
             	request.setAttribute("closedProgram", closed); 
             }
+        }
+        else if (action.equalsIgnoreCase("pendingProgram")) {
+        	String progID = request.getParameter("progID");
+        	String admID = request.getParameter("admID");
+        	statusdao.pendingProgram(progID,admID);
+        	forward = LIST_PROGRAM;
+        	request.setAttribute("programsDiproses", statusdao.getAllPendingProgram()); 
+            request.setAttribute("programsLulus", statusdao.getAllApproveProgram());
+            request.setAttribute("programsGagal", statusdao.getAllRejectProgram()); 
         }
         else if (action.equalsIgnoreCase("approveProgram")) {
         	String progID = request.getParameter("progID");

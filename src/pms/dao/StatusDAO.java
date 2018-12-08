@@ -160,6 +160,37 @@ public class StatusDAO {
 		  return new StatusAdminOrganizerBean(status,admin,organizer);
 	}
 	
+	//update program to PENDING
+	public void pendingProgram(String progID, String admID) {
+		try {
+			currentCon = ConnectionManager.getConnection();
+			ps=currentCon.prepareStatement("insert into STATUS (ADMID, PROGID)values(?,?)");
+			ps.setString(1,admID);
+			ps.setString(2,progID);
+			ps.executeUpdate();
+  			}
+		catch (Exception ex) {
+			System.out.println("failed: An Exception has occurred! " + ex);
+		}
+		finally {
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (Exception e) {
+				}
+				ps = null;
+			}
+			
+			if (currentCon != null) {
+				try {
+					currentCon.close();
+				} catch (Exception e) {
+				}
+				currentCon = null;
+			}
+		}
+	}
+		
 	//update program to LULUS
 	public void approveProgram(String progID, String admID) {
 		try {
