@@ -51,9 +51,11 @@ public class AdminController extends HttpServlet {
 	        	String email = request.getParameter("admEmail");
 	        	AdminBean admin = admindao.getAdminByEmail(email);
 	        	request.setAttribute("admin", admin);
+	        	request.setAttribute("manager", admindao.getAdminByID(admin.getSvID()));
 		}
 		else if(action.equalsIgnoreCase("registerAdmins")) {
 		        forward = REGISTER;
+		        request.setAttribute("managers", admindao.getAllManager());
 		}
 		else if(action.equalsIgnoreCase("viewAdmins")) {
 				forward = VIEW_ADMINS;
@@ -105,6 +107,7 @@ public class AdminController extends HttpServlet {
         	
             RequestDispatcher view = request.getRequestDispatcher(VIEW);
             request.setAttribute("admin", admindao.getAdminByEmail(email));
+            request.setAttribute("manager", admindao.getAdminByID(admin.getSvID()));
             view.forward(request, response);
         }
 	}

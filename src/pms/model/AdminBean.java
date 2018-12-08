@@ -7,6 +7,7 @@ public class AdminBean {
     private String admEmail;
     private String admPhone;
     private String svID;
+    private String position;
     private boolean valid;
     
 	public String getAdmID() {
@@ -26,6 +27,9 @@ public class AdminBean {
 	}
 	public String getSvID() {
 		return svID;
+	}
+	public String getPosition() {
+		return position;
 	}
 	public boolean isValid() {
 		return valid;
@@ -50,5 +54,8 @@ public class AdminBean {
 	}
 	public void setValid(boolean valid) {
 		this.valid = valid;
+	}
+	public void setPosition(String position) {
+		this.position = position;
 	}
 }

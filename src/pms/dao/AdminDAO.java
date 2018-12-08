@@ -273,6 +273,7 @@ public class AdminDAO {
             	admin.setAdmEmail(rs.getString("admEmail"));
             	admin.setAdmPhone(rs.getString("admPhone"));
             	admin.setSvID(rs.getString("svID"));
+            	admin.setPosition(rs.getString("position"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -280,7 +281,24 @@ public class AdminDAO {
 
         return admin;
     }
+    
+    public AdminBean getAdminByID(String svID) {
+    	AdminBean admin = new AdminBean();
+        try {
+        	currentCon = ConnectionManager.getConnection();
+        	stmt = currentCon.createStatement();
+            ResultSet rs = stmt.executeQuery("select admName from ADMIN where admID='" + svID + "'");
 
+            while (rs.next()) {
+            	admin.setAdmName(rs.getString("admName"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return admin;
+	}
+    
 	public List<AdminBean> getAdminBySvID(String svID) {
 		List<AdminBean> admins = new ArrayList<AdminBean>();
         try {
@@ -296,6 +314,7 @@ public class AdminDAO {
             	admin.setAdmEmail(rs.getString("admEmail"));
             	admin.setAdmPhone(rs.getString("admPhone"));
             	admin.setSvID(rs.getString("svID"));
+            	admin.setPosition(rs.getString("position"));
             	admins.add(admin);
             }
         } catch (SQLException e) {
@@ -303,5 +322,25 @@ public class AdminDAO {
         }
 
         return admins;
+	}
+	
+	public List<AdminBean> getAllManager() {
+		List<AdminBean> managers = new ArrayList<AdminBean>();
+        try {
+        	currentCon = ConnectionManager.getConnection();
+        	stmt = currentCon.createStatement();
+            ResultSet rs = stmt.executeQuery("select * from ADMIN where POSITION='MANAGER'");
+
+            while (rs.next()) {
+            	AdminBean manager = new AdminBean();
+            	manager.setAdmID(rs.getString("admID"));
+            	manager.setAdmName(rs.getString("admName"));
+            	managers.add(manager);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return managers;
 	}
 }
