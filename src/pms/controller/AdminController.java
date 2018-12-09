@@ -24,6 +24,7 @@ public class AdminController extends HttpServlet {
 	private static final String UPDATE = "/admin/updateAccount.jsp";
 	private static final String VIEW_ADMINS = "/admin/viewSubordinate.jsp";
 	private static String REGISTER = "/admin/registerSubordinate.jsp";
+	private static String REPORT = "/admin/report.jsp";
 	private AdminDAO admindao;
 	String forward="";
 	
@@ -63,7 +64,16 @@ public class AdminController extends HttpServlet {
 				String svID = request.getParameter("admID");
 	        	request.setAttribute("admins", admindao.getAdminBySvID(svID));
 		}
-
+		else if(action.equalsIgnoreCase("report")) {
+				forward = REPORT;
+				request.setAttribute("diproses", admindao.getSumPendingProgram());
+				request.setAttribute("lulus", admindao.getSumApproveProgram());
+				request.setAttribute("gagal", admindao.getSumRejectProgram());
+				request.setAttribute("jumlah", admindao.getSumAllProgram());
+				request.setAttribute("pengguna", admindao.getSumOrganizerProgram());
+				request.setAttribute("pentadbir", admindao.getSumAdminProgram());
+		}
+		
 		RequestDispatcher view = request.getRequestDispatcher(forward);
 	    view.forward(request, response);
 	}

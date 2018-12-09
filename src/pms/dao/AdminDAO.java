@@ -343,4 +343,112 @@ public class AdminDAO {
 
         return managers;
 	}
+	
+	//get sum diproses
+	public int getSumPendingProgram() {
+    	int diproses = 0;
+        try {
+        	currentCon = ConnectionManager.getConnection();
+        	stmt = currentCon.createStatement();
+            ResultSet rs = stmt.executeQuery("select count(progid) diproses from program join status using (progid) where (progid, statusdate) in ( select progid, max(statusdate) from status group by progid) and status='DIPROSES'");
+            
+            while (rs.next()) {
+            	diproses = rs.getInt("diproses");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return diproses;
+	}
+	
+	//get sum lulus
+	public int getSumApproveProgram() {
+    	int lulus = 0;
+        try {
+        	currentCon = ConnectionManager.getConnection();
+        	stmt = currentCon.createStatement();
+            ResultSet rs = stmt.executeQuery("select count(progid) lulus from program join status using (progid) where (progid, statusdate) in ( select progid, max(statusdate) from status group by progid) and status='LULUS'");
+            
+            while (rs.next()) {
+            	lulus = rs.getInt("lulus");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lulus;
+	}
+	
+	//get sum gagal
+	public int getSumRejectProgram() {
+    	int gagal = 0;
+        try {
+        	currentCon = ConnectionManager.getConnection();
+        	stmt = currentCon.createStatement();
+            ResultSet rs = stmt.executeQuery("select count(progid) gagal from program join status using (progid) where (progid, statusdate) in ( select progid, max(statusdate) from status group by progid) and status='GAGAL'");
+            
+            while (rs.next()) {
+            	gagal = rs.getInt("gagal");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return gagal;
+	}
+	
+	//get sum semua
+	public int getSumAllProgram() {
+    	int semua = 0;
+        try {
+        	currentCon = ConnectionManager.getConnection();
+        	stmt = currentCon.createStatement();
+            ResultSet rs = stmt.executeQuery("select count(progid) semua from program p join status s using (progid) where (progid, statusdate) in ( select progid, max(statusdate) from status group by progid)");
+            
+            while (rs.next()) {
+            	semua = rs.getInt("semua");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return semua;
+	}
+	
+	//get sum pengguna program
+	public int getSumOrganizerProgram() {
+    	int pengguna = 0;
+        try {
+        	currentCon = ConnectionManager.getConnection();
+        	stmt = currentCon.createStatement();
+            ResultSet rs = stmt.executeQuery("select count(progid) pengguna from program join status using (progid) where (progid, statusdate) in ( select progid, max(statusdate) from status group by progid) and orgid is not null");
+            
+            while (rs.next()) {
+            	pengguna = rs.getInt("pengguna");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return pengguna;
+	}
+	
+	//get sum pentadbir program
+	public int getSumAdminProgram() {
+    	int pentadbir = 0;
+        try {
+        	currentCon = ConnectionManager.getConnection();
+        	stmt = currentCon.createStatement();
+            ResultSet rs = stmt.executeQuery("select count(progid) pentadbir from program p join status s using (progid) where (progid, statusdate) in ( select progid, max(statusdate) from status group by progid) and p.admid is not null");
+            
+            while (rs.next()) {
+            	pentadbir = rs.getInt("pentadbir");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return pentadbir;
+	}
 }
