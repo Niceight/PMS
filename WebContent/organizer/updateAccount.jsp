@@ -110,13 +110,13 @@
 			                                </div>
 			                            </div>
 			                            <div class="field">
-			                            	<label class="label">Telefon 1</label>
+			                            	<label class="label">Telefon Bimbit</label>
 			                                <div class="control">
 			                                    <input class="input is-medium is-rounded" type="tel" name="orgPhone1" value="<c:out value="${organizer.orgPhone1}" />" placeholder="Masukkan Telefon 1" required>
 			                                </div>
 			                            </div>
 			                            <div class="field">
-			                            	<label class="label">Telefon 2</label>
+			                            	<label class="label">Telefon Ofis</label>
 			                                <div class="control">
 			                                    <input class="input is-medium is-rounded" type="tel" name="orgPhone2" value="<c:out value="${organizer.orgPhone2}" />" placeholder="Masukkan Telefon 2" required>
 			                                </div>

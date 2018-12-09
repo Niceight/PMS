@@ -100,10 +100,10 @@
 		                            <label class="label">Kad Pengenalan</label>
 		                            <p class="content is-medium"><c:out value="${organizer.orgIC}" /></p>
 		                            
-		                            <label class="label">Telefon 1</label>
+		                            <label class="label">Telefon Bimbit</label>
 		                            <p class="content is-medium"><c:out value="${organizer.orgPhone1}" /></p>
 		                            
-									<label class="label">Telefon 2</label>
+									<label class="label">Telefon Ofis</label>
 		                            <p class="content is-medium"><c:out value="${organizer.orgPhone2}" /></p>
 		                            
 		                            <label class="label">Jenis Organisasi</label>
