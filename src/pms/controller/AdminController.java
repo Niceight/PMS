@@ -19,6 +19,7 @@ import pms.model.AdminBean;
 @WebServlet("/AdminController")
 public class AdminController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String INDEX = "/admin/index.jsp";
 	private static final String VIEW = "/admin/viewAccount.jsp";
 	private static final String UPDATE = "/admin/updateAccount.jsp";
 	private static final String VIEW_ADMINS = "/admin/viewSubordinate.jsp";
@@ -90,13 +91,12 @@ public class AdminController extends HttpServlet {
 				e.printStackTrace();
 			}
         	
-        	forward = VIEW_ADMINS;
-        	request.setAttribute("admins", admindao.getAdminBySvID(admin.getSvID()));
+        	forward = INDEX;
         	RequestDispatcher view = request.getRequestDispatcher(forward);
     	    view.forward(request, response);
         }
 		else if(admin.isValid() && check.equalsIgnoreCase("alreadyRegistered")) {
-			response.sendRedirect("/admin/registerSubordinate?accountExist=.jsp");
+			response.sendRedirect("/admin/registerSubordinate?accountExist.jsp");
 		}
         else {
         	try {
