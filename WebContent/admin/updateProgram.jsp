@@ -19,6 +19,8 @@
 	<title>Pindaan Program</title>
 	<link rel="stylesheet" href="/PMS/css/bulma.min.css" />
 	<link rel="stylesheet" href="/PMS/css/parsley.css" />
+	<link rel="stylesheet" href="/PMS/css/bulma-divider.min.css" />
+	<link rel="stylesheet" href="/PMS/css/jquery-ui.css">
 </head>
 <body onload="prevProgram(x,y)">
 <%	String email = (String)session.getAttribute("currentSessionAdminEmail");
@@ -108,6 +110,31 @@
 						 <section class="hero is-white">
 		                    <div class="hero-body">
 		                        <div class="container">
+		                        	<h1 class="title has-text-dark">
+		                                Program Lulus 
+		                            </h1>
+		                            <h3 class="subtitle">Sila pilih tarikh selain tarikh program yang sudah diluluskan dibawah</h3>
+		                            <table class="table is-fullwidth" >
+		                            	<thead>
+		                            		<tr>
+		                            			<th>Bil.</th>
+		                            			<th>Nama Program</th>
+		                            			<th>Tarikh Mula Program</th>
+		                            			<th>Tarikh Akhir Program</th>
+		                            		</tr>
+		                            	</thead>
+		                            	<tbody>
+		                            		 <c:forEach items="${programsLulus}" var="program" varStatus="theCount">
+										  		<tr>
+										  			<th><c:out value="${theCount.count}" /></th>
+										  			<td><c:out value="${program.progName}" /></td>
+										  			<td><c:out value="${program.progStartDate}" /></td>
+										  			<td><c:out value="${program.progEndDate}" /></td>
+										  		</tr>
+									    	</c:forEach>
+		                            	</tbody>
+		                            </table>
+		                            <div class="is-divider" data-content="TAMAT"></div>
 									<h1 class="title has-text-dark">
 		                                Program <c:out value="${program.progName}" />.
 		                            </h1>
@@ -139,28 +166,32 @@
 			                            <div class="field">
 			                        		<label class="label">Tarikh Mula Program</label>
 			                                <div class="control">
-			                                    <input class="input is-medium is-rounded" type="date" name="progStartDate" value="<c:out value="${program.progStartDate}" />" required>
+			                                    <input id="date" class="input is-medium is-rounded" type="text" name="progStartDate" value="<c:out value="${program.progStartDate}" />" 
+			                                    data-parsley-required data-parsley-required-message="Ruang ini wajib diisi">
 			                                </div>
 			                            </div>
 			                            
 			                            <div class="field">
 			                        		 <label class="label">Tarikh Tamat Program</label>
 			                                <div class="control">
-			                                    <input class="input is-medium is-rounded" type="date" name="progEndDate" value="<c:out value="${program.progEndDate}" />"  required>
+			                                    <input id="date2" class="input is-medium is-rounded" type="text" name="progEndDate" value="<c:out value="${program.progEndDate}" />"  
+			                                    data-parsley-required data-parsley-required-message="Ruang ini wajib diisi">
 			                                </div>
 			                            </div>
 			                            
 			                            <div class="field">
 			                        		<label class="label">Masa Mula Program</label>
 			                                <div class="control">
-			                                    <input class="input is-medium is-rounded" type="time" name="progStartTime" value="<c:out value="${program.progStartTime}" />"  required>
+			                                    <input class="input is-medium is-rounded" type="time" name="progStartTime" value="<c:out value="${program.progStartTime}" />"  
+			                                    data-parsley-required data-parsley-required-message="Ruang ini wajib diisi">
 			                                </div>
 			                            </div>
 			                            
 			                            <div class="field">
 			                        		<label class="label">Masa Tamat Program</label>
 			                                <div class="control">
-			                                    <input class="input is-medium is-rounded" type="time" name="progEndTime" value="<c:out value="${program.progEndTime}" />" required>
+			                                    <input class="input is-medium is-rounded" type="time" name="progEndTime" value="<c:out value="${program.progEndTime}" />" 
+			                                    data-parsley-required data-parsley-required-message="Ruang ini wajib diisi">
 			                                </div>
 			                            </div>
 			                            
@@ -224,6 +255,8 @@
 	</section>
 	<script src="js/jquery.js"></script>
 	<script src="js/parsley.min.js"></script>
+	<script src="js/jquery-1.12.4.js"></script>
+  	<script src="js/jquery-ui.js"></script>
 	<script type="text/javascript">
 	var x = new String('${program.progType}');
 	var y = new String('${program.venueID}');
@@ -274,6 +307,24 @@
 		  }
 
 		});
+	var arr = [], arr2 =[];
+	<c:forEach var="program" items="${programsLulus}">
+		arr.push("<c:out value="${program.progStartDate}"></c:out>");
+		arr2.push("<c:out value="${program.progEndDate}"></c:out>");
+	</c:forEach>
+
+	$('#date').datepicker({
+	    beforeShowDay: function(date){
+	        var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+	        return [ arr.indexOf(string) == -1 ]
+	    }
+	});
+	$('#date2').datepicker({
+	    beforeShowDay: function(date){
+	        var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+	        return [ arr2.indexOf(string) == -1 ]
+	    }
+	});
 	</script>
 	<footer class="footer">
 	  <div class="content has-text-centered">

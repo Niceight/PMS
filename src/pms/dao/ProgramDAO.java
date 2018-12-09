@@ -89,6 +89,31 @@ public class ProgramDAO {
 	  return programs;
 	}
 	
+	//list approve program
+	public List<ProgramBean> getAllApproveProgram() {
+		
+	  List<ProgramBean> programs = new ArrayList<ProgramBean>();
+	  
+	  try {
+		currentCon = ConnectionManager.getConnection();
+		stmt = currentCon.createStatement();
+		String q = "select progname, progstartdate, progenddate from program join status using (progid) where (progid, statusdate) in ( select progid, max(statusdate) from status group by progid) and status='LULUS'";
+		ResultSet rs = stmt.executeQuery(q);
+	  
+		  while (rs.next()) {
+			  ProgramBean program = new ProgramBean();
+			  program.setProgName(rs.getString("progName"));
+			  program.setProgStartDate(rs.getDate("progStartDate"));
+			  program.setProgEndDate(rs.getDate("progEndDate"));
+			  
+		      programs.add(program);
+		  }
+	  } catch (SQLException e) {
+	      e.printStackTrace();
+	  }
+	  return programs;
+	}
+	
 	//get program by progid
 	public ProgramBean getProgramByID(String progID) {
 		ProgramBean program = new ProgramBean();

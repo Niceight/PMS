@@ -84,6 +84,7 @@ public class ProgramAdminController extends HttpServlet {
             ProgramBean program = dao.getProgramByID(progID);
             request.setAttribute("program", program); 
             request.setAttribute("venues", venuedao.getAllVenue()); 
+            request.setAttribute("programsLulus", dao.getAllApproveProgram());
             if(program.getProgType().equalsIgnoreCase("Umum")) {
             	OpenBean open = opendao.getOpenProgramByID(progID);
             	request.setAttribute("openProgram", open); 
@@ -121,6 +122,7 @@ public class ProgramAdminController extends HttpServlet {
         else {
             forward = INSERT;
             request.setAttribute("venues", venuedao.getAllVenue()); 
+            request.setAttribute("programsLulus", dao.getAllApproveProgram());
         }
         RequestDispatcher view = request.getRequestDispatcher(forward);
         view.forward(request, response);
@@ -141,7 +143,7 @@ public class ProgramAdminController extends HttpServlet {
 		String progType = request.getParameter("progType");
 		String admID = request.getParameter("admID");
 		
-		SimpleDateFormat parsedate = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat parsedate = new SimpleDateFormat("MM/dd/yyyy");
 		SimpleDateFormat time = new SimpleDateFormat("hh:mm");
 		
 		try {  
