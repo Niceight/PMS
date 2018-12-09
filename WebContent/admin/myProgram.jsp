@@ -64,7 +64,7 @@
 				<a class="navbar-item" href="/PMS/AdminController?action=viewAdmins&admID=<c:out value="<%=id%>" />">Papar Pentadbir Bawahan</a>
 				<a class="navbar-item" href="/PMS/ProgramAdminController?action=insert">Daftar Program</a>
 				<a class="navbar-item is-active" href="/PMS/ProgramAdminController?action=myProgram&admID=<c:out value="<%=id%>" />">MyProgram</a>
-				<a class="navbar-item" href="/PMS/AdminController?action=viewReport">Papar Laporan</a>
+				<a class="navbar-item" href="/PMS/AdminController?action=report">Papar Laporan</a>
 			</div>
 			<div class="navbar-end">
 				<div class="navbar-item">
@@ -117,7 +117,7 @@
 			                        Laporan
 			                    </p>
 			                    <ul class="menu-list">
-			                        <li><a class="" href="/PMS/AdminController?action=insert">Papar Laporan</a></li>
+			                        <li><a class="" href="/PMS/AdminController?action=report">Papar Laporan</a></li>
 			                    </ul>
 			                </aside>
 						</div>
@@ -248,7 +248,9 @@
 	  <div class="content has-text-centered">
 	    <p>This website was handcrafted with ❤️ </p>
 	    <p>by UMMAH InfoSys</p>
-	    <p>using <a target="_blank" href="https://bulma.io/">Bulma</a></p>
+	   <p>using <a target="_blank" href="https://bulma.io/">Bulma</a> 
+	    | <a target="_blank" href="http://parsleyjs.org/">Parsley.js</a> 
+	    | <a target="_blank" href="https://www.chartjs.org/">Chart.js</a></p>
 	    <p>Source code on <a target="_blank" href="https://github.com/Niceight/PMS">GitHub</a></p>
 	  </div>
 	</footer>

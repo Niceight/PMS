@@ -85,7 +85,9 @@
 	  <div class="content has-text-centered">
 	    <p>This website was handcrafted with ❤️ </p>
 	    <p>by UMMAH InfoSys</p>
-	    <p>using <a target="_blank" href="https://bulma.io/">Bulma</a></p>
+	    <p>using <a target="_blank" href="https://bulma.io/">Bulma</a> 
+	    | <a target="_blank" href="http://parsleyjs.org/">Parsley.js</a> 
+	    | <a target="_blank" href="https://www.chartjs.org/">Chart.js</a></p>
 	    <p>Source code on <a target="_blank" href="https://github.com/Niceight/PMS">GitHub</a></p>
 	  </div>
 	</footer>
