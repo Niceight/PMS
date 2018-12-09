@@ -48,12 +48,11 @@
 	      <h1 class="title">
 	        SELAMAT DATANG KE <i>PROGRAM MANAGEMENT SYSTEM</i> ✨
 	      </h1>
-	      <h2 class="subtitle">
-	        untuk Masjid As-sajidin 🕌
-	      </h2>
-	    </div>
+	      <h4 class="title">
+	        Masjid As-sajidin 🕌
+	      </h4>
+	     </div>
 	  </div>
-	
 	</section>
 	<script type="text/javascript">
 	document.addEventListener('DOMContentLoaded', () => {

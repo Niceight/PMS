@@ -111,10 +111,7 @@
 		                                Senarai Pentadbir bawah <%=name%>
 		                            </h1>
 		                            
-		                            <h2 class="subtitle has-text-dark">
-		                                Ini adalah anak buah anda bukannya orang gaji 🙆  <br/>
-		                                Sayangilah mereka 💞 
-		                            </h2>
+		                          
 		                            <table class="table is-hoverable is-fullwidth">
 									    <thead>
 								      		<tr>
