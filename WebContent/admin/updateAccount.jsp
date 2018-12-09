@@ -18,6 +18,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Pinda Profil</title>
 	<link rel="stylesheet" href="/PMS/css/bulma.min.css" />
+	<link rel="stylesheet" href="/PMS/css/parsley.css" />
 </head>
 <body>
 <%	String email = (String)session.getAttribute("currentSessionAdminEmail");
@@ -114,11 +115,13 @@
 		                            <h2 class="subtitle has-text-dark">
 		                                Masukkan semua butiran 👇
 		                            </h2>
-		                            <form method="post" action="AdminController">
+		                            <form method="post" action="AdminController" data-parsley-validate>
 			                        	<div class="field">
 			                        		<label class="label">Nama</label>
 			                                <div class="control">
-			                                    <input class="input is-medium is-rounded" type="text" name="admName" value="<c:out value="${admin.admName}" />" placeholder="" autofocus required>
+			                                    <input class="input is-medium is-rounded" type="text" name="admName" value="<c:out value="${admin.admName}" />" placeholder="" 
+			                                    autofocus data-parsley-required data-parsley-required-message="Ruang ini wajib diisi" 
+                                   	 			data-parsley-length="[3, 50]" data-parsley-length-message="Nama anda perlu melebihi 3 huruf dan tidak melebihi 50 huruf">
 			                                </div>
 			                            </div>
 			                            <div class="field">
@@ -128,9 +131,12 @@
 			                                </div>
 			                            </div>
 			                            <div class="field">
-			                            	<label class="label">Telefon</label>
+			                            	<label class="label">Telefon Bimbit</label>
 			                                <div class="control">
-			                                    <input class="input is-medium is-rounded" type="text" name="admPhone" value="<c:out value="${admin.admPhone}" />" placeholder="" required>
+			                                    <input class="input is-medium is-rounded" type="text" name="admPhone" value="<c:out value="${admin.admPhone}" />" placeholder="" 
+			                                    data-parsley-required data-parsley-required-message="Ruang ini wajib diisi" 
+			                                    data-parsley-pattern="/^0\d{9}$|^0\d{10}$/" data-parsley-pattern-message="Telefon bimbit anda tidak perlu ada '-', bermula dengan 0 dan perlu ada 10 digit atau 11 digit" 
+			                                    data-parsley-type="number" data-parsley-type-message="Telefon bimbit anda terdapat huruf">
 			                                </div>
 			                            </div>
 			                            <div class="field">
@@ -151,7 +157,17 @@
 			                            <div class="field">
 			                            	<label class="label">Kata Laluan</label>
 			                                <div class="control">
-			                                    <input class="input is-medium is-rounded" type="password" name="admPassword" value="" placeholder="Masukkan Kata Laluan" required>
+			                                    <input id="pass1" class="input is-medium is-rounded" type="password" name="" value="" placeholder="Masukkan Kata Laluan" 
+			                                    data-parsley-required data-parsley-required-message="Ruang ini wajib diisi">
+			                                </div>
+			                            </div>
+			                            <div class="field">
+			                            	<label class="label">Pastikan Kata Laluan</label>
+			                                <div class="control">
+			                                    <input id="pass2" class="input is-medium is-rounded" type="password" name="admPassword" value="" placeholder="Masukkan Kata Laluan sekali lagi" 
+			                                    data-parsley-required data-parsley-required-message="Ruang ini wajib diisi" 
+			                                    data-parsley-equalto="#pass1" data-parsley-equalto-message="Kata laluan ini tidak sama dengan kata laluan diatas" 
+			                                    data-parsley-length="[3, 12]" data-parsley-length-message="Kata laluan anda perlu melebihi 3 dan tidak melebihi 12 huruf/digit">
 			                                </div>
 			                            </div>
 			                            <div class="buttons">
@@ -166,6 +182,8 @@
 			</div><!-- end hero-body -->
 		</div><!-- end container -->
 	</section>
+	<script src="js/jquery.js"></script>
+	<script src="js/parsley.min.js"></script>
 	<script type="text/javascript">
 	document.addEventListener('DOMContentLoaded', () => {
 

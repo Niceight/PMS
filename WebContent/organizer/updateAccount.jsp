@@ -18,6 +18,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Anjung Pengguna</title>
 	<link rel="stylesheet" href="/PMS/css/bulma.min.css" />
+	<link rel="stylesheet" href="/PMS/css/parsley.css" />
 	
 </head>
 <body onload="orgType(x)">
@@ -90,11 +91,13 @@
 		                                Profil <%= name %> 🔥
 		                            </h1>
 		                            
-		                            <form method="post" action="OrganizerController">
+		                            <form method="post" action="OrganizerController" data-parsley-validate>
 			                        	<div class="field">
 			                        		<label class="label">Nama</label>
 			                                <div class="control">
-			                                    <input class="input is-medium is-rounded" type="text" name="orgName" value="<c:out value="${organizer.orgName}" />" placeholder="Masukkan Nama" required>
+			                                    <input class="input is-medium is-rounded" type="text" name="orgName" value="<c:out value="${organizer.orgName}" />" placeholder="Masukkan Nama" 
+			                                     autofocus data-parsley-required data-parsley-required-message="Ruang ini wajib diisi" 
+                                   	 			 data-parsley-length="[3, 50]" data-parsley-length-message="Nama anda perlu melebihi 3 huruf dan tidak melebihi 50 huruf">
 			                                </div>
 			                            </div>
 			                            <div class="field">
@@ -106,26 +109,35 @@
 			                            <div class="field">
 			                            	<label class="label">Kad Pengenalan</label>
 			                                <div class="control">
-			                                    <input class="input is-medium is-rounded" type="text" name="orgIC" value="<c:out value="${organizer.orgIC}"/>" placeholder="Masukkan Kad Pengenalan" required>
+			                                    <input class="input is-medium is-rounded" type="text" name="orgIC" value="<c:out value="${organizer.orgIC}"/>" placeholder="Masukkan Kad Pengenalan" 
+			                                    data-parsley-required data-parsley-required-message="Ruang ini wajib diisi" 
+                                    			data-parsley-pattern="/^\d{6}-\d{2}-\d{4}$/" data-parsley-pattern-message="Nombor kad pengenalan anda tidak tepat dan perlu letakkan '-', 12 digit dan tiada huruf" >
 			                                </div>
 			                            </div>
 			                            <div class="field">
 			                            	<label class="label">Telefon Bimbit</label>
 			                                <div class="control">
-			                                    <input class="input is-medium is-rounded" type="tel" name="orgPhone1" value="<c:out value="${organizer.orgPhone1}" />" placeholder="Masukkan Telefon 1" required>
+			                                    <input class="input is-medium is-rounded" type="tel" name="orgPhone1" value="<c:out value="${organizer.orgPhone1}" />" placeholder="Masukkan Telefon Bimbit" 
+			                                    data-parsley-required data-parsley-required-message="Ruang ini wajib diisi" 
+			                                    data-parsley-pattern="/^0\d{9}$|^0\d{10}$/" data-parsley-pattern-message="Telefon bimbit anda tidak perlu ada '-', bermula dengan 0 dan perlu ada 10 digit atau 11 digit" 
+			                                    data-parsley-type="number" data-parsley-type-message="Telefon bimbit anda terdapat huruf">
 			                                </div>
 			                            </div>
 			                            <div class="field">
 			                            	<label class="label">Telefon Ofis</label>
 			                                <div class="control">
-			                                    <input class="input is-medium is-rounded" type="tel" name="orgPhone2" value="<c:out value="${organizer.orgPhone2}" />" placeholder="Masukkan Telefon 2" required>
+			                                    <input class="input is-medium is-rounded" type="tel" name="orgPhone2" value="<c:out value="${organizer.orgPhone2}" />" placeholder="Masukkan Telefon Ofis" 
+			                                    data-parsley-required data-parsley-required-message="Ruang ini wajib diisi" 
+			                                    data-parsley-pattern="/^0\d{8}$/" data-parsley-pattern-message="Telefon ofis anda tidak perlu ada '-', bermula dengan 0 dan perlu ada 9 digit" 
+			                                    data-parsley-type="number" data-parsley-type-message="Telefon bimbit anda terdapat huruf">
 			                                </div>
 			                            </div>
 			                            <div class="field">
 			                            	<label class="label">Jenis Organisasi</label>
 			                                <div class="control">
 			                                	<label class="radio">
-			                                		<input id="1" type="radio" name="typeOrganization" value="Kerajaan"> Kerajaan
+			                                		<input id="1" type="radio" name="typeOrganization" value="Kerajaan"
+			                                		data-parsley-required data-parsley-required-message="Ruang ini wajib dipilih"> Kerajaan
 												</label>
 												<label class="radio">
 												    <input id="2" type="radio" name="typeOrganization" value="Swasta"> Swasta
@@ -138,13 +150,25 @@
 			                            <div class="field">
 			                            	<label class="label">Nama Organisasi</label>
 			                                <div class="control">
-			                                    <input class="input is-medium is-rounded" type="text" name="organization" value="<c:out value="${organizer.organization}" />" placeholder="Masukkan Nama Organisasi" required>
+			                                    <input class="input is-medium is-rounded" type="text" name="organization" value="<c:out value="${organizer.organization}" />" placeholder="Masukkan Nama Organisasi" 
+			                                    data-parsley-required data-parsley-required-message="Ruang ini wajib diisi" 
+                                     			data-parsley-length="[3, 50]" data-parsley-length-message="Nama organisasi anda perlu tidak melebihi 50 huruf">
 			                                </div>
 			                            </div>
 			                            <div class="field">
 			                            	<label class="label">Kata Laluan</label>
 			                                <div class="control">
-			                                    <input class="input is-medium is-rounded" type="password" name="orgPassword" placeholder="Masukkan Kata Laluan" required>
+			                                    <input id="pass1"  class="input is-medium is-rounded" type="password" name="" value="" placeholder="Masukkan Kata Laluan" 
+			                                    data-parsley-required data-parsley-required-message="Ruang ini wajib diisi" >
+			                                </div>
+			                            </div>
+			                            <div class="field">
+			                            	<label class="label">Pastikan Kata Laluan</label>
+			                                <div class="control">
+			                                    <input id="pass2" class="input is-medium is-rounded" type="password" name="orgPassword" value="" placeholder="Masukkan Kata Laluan sekali lagi" 
+			                                    data-parsley-required data-parsley-required-message="Ruang ini wajib diisi" 
+			                                    data-parsley-equalto="#pass1" data-parsley-equalto-message="Kata laluan ini tidak sama dengan kata laluan diatas" 
+			                                    data-parsley-length="[3, 12]" data-parsley-length-message="Kata laluan anda perlu melebihi 3 dan tidak melebihi 12 huruf/digit">
 			                                </div>
 			                            </div>
 			                            <div class="buttons">
@@ -159,6 +183,8 @@
 			</div><!-- end hero-body -->
 		</div><!-- end container -->
 	</section>
+	<script src="js/jquery.js"></script>
+	<script src="js/parsley.min.js"></script>
 	<script type="text/javascript">
 	var x = new String('${organizer.typeOrganization}');
 	function orgType(x) {

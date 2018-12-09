@@ -18,6 +18,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Daftar Program</title>
 	<link rel="stylesheet" href="/PMS/css/bulma.min.css" />
+	<link rel="stylesheet" href="/PMS/css/parsley.css" />
 </head>
 <body >
 <%	String email = (String)session.getAttribute("currentSessionAdminEmail");
@@ -111,11 +112,13 @@
 		                                Daftar Program 
 		                            </h1>
 		                            <h3 class="subtitle">Masukkan semua butiran 👇</h3>
-									<form name="form" method="post" action="ProgramAdminController">
+									<form name="form" method="post" action="ProgramAdminController" data-parsley-validate>
 			                            <div class="field">
 			                        		<label class="label">Nama Program</label>
 			                                <div class="control">
-			                                     <input class="input is-medium is-rounded" type="text" name="progName" value="" placeholder="Masukkan Nama Program" required>
+			                                     <input class="input is-medium is-rounded" type="text" name="progName" value="" placeholder="Masukkan Nama Program" 
+			                                     autofocus data-parsley-required data-parsley-required-message="Ruang ini wajib diisi" 
+                                    			 data-parsley-length="[5, 50]" data-parsley-length-message="Nama porgram anda perlu melebihi 5 huruf dan tidak melebihi 50 huruf">
 			                                </div>
 			                            </div>
 			                            
@@ -123,10 +126,11 @@
 			                        		<label class="label">Jenis Program</label>
 			                                <div class="control">
 			                                    <label class="radio">
-			                                    	<input type="radio" name="progType" value="Umum" onclick="programType(0)" required> Umum
+			                                    	<input type="radio" name="progType" value="Umum" onclick="programType(0)" 
+			                                    	data-parsley-required data-parsley-required-message="Ruang ini wajib dipilih"> Umum
 			                                    </label>
 			                                    <label class="radio">
-			                                    	<input type="radio" name="progType" value="Tertutup" onclick="programType(1)" required> Tertutup
+			                                    	<input type="radio" name="progType" value="Tertutup" onclick="programType(1)"> Tertutup
 			                                    </label>
 			                                </div>
 			                            </div>
@@ -163,8 +167,8 @@
 			                        		<label class="label">Tempat Program</label>
 			                        		<div class="control">
 			                        			<div class="select is-medium is-rounded is-fullwidth">
-				                                    <select name="venueID" required>
-													    <option value="0">Pilih Tempat</option>
+				                                    <select name="venueID" data-parsley-required data-parsley-required-message="Ruang ini wajib dipilih">
+													    <option value="">Pilih Tempat</option>
 													    <c:forEach items="${venues}" var="venue">
 															    <option id="<c:out value="${venue.venueID}" />" value="<c:out value="${venue.venueID}" />"><c:out value="${venue.venueName}" /></option>		  	
 														</c:forEach>
@@ -172,12 +176,13 @@
 				                                </div>
 			                        		</div>
 			                            </div>
-			                            
+			                            <h1 class="title"></h1>
 			                            <div class="content" id="num" style="display:none">
 			                            	<div class="field">
 				                        		<label class="label">Jumlah Peserta</label>
 				                                <div class="control">
-				                                    <input class="input is-medium is-rounded" type="text" name="numParticipant" value="" placeholder="Masukkan Jumlah Peserta Hadiri">
+				                                    <input class="input is-medium is-rounded" type="text" name="numParticipant" value="" placeholder="Masukkan Jumlah Peserta Hadiri"
+				                                    data-parsley-type="digits" data-parsley-type-message="Ruang ini perlu diisi digit sahaja">
 				                                </div>
 				                            </div>
 										</div>
@@ -186,7 +191,8 @@
 											<div class="field">
 				                        		<label class="label">Nama VIP</label>
 				                                <div class="control">
-				                                    <input class="input is-medium is-rounded" type="text" name="vipName" value="" placeholder="Masukkan Nama VIP">
+				                                    <input class="input is-medium is-rounded" type="text" name="vipName" value="" placeholder="Masukkan Nama VIP"
+				                                    data-parsley-length="[3, 50]" data-parsley-length-message="Nama VIP anda perlu melebihi 3 huruf dan tidak melebihi 50 huruf">
 				                                </div>
 				                            </div>
 										</div>
@@ -211,6 +217,8 @@
 			</div><!-- end hero-body -->
 		</div><!-- end container -->
 	</section>
+	<script src="js/jquery.js"></script>
+	<script src="js/parsley.min.js"></script>
 	<script type="text/javascript">
 	function programType(x) {
 		if(x==0) {

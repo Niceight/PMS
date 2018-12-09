@@ -72,7 +72,7 @@
                                 <div class="control">
                                     <input class="input is-medium is-rounded" type="text" name="orgIC" value="" placeholder="Masukkan Kad Pengenalan" 
                                     data-parsley-required data-parsley-required-message="Ruang ini wajib diisi" 
-                                    data-parsley-pattern="/^\d{6}-\d{2}-\d{4}$/" data-parsley-pattern-message="Nombor kad pengenalan anda perlu ada '-' atau terdapat huruf" >
+                                    data-parsley-pattern="/^\d{6}-\d{2}-\d{4}$/" data-parsley-pattern-message="Nombor kad pengenalan anda tidak tepat dan perlu letakkan '-', 12 digit dan tiada huruf">
                                 </div>
                             </div>
                             <div class="field">
@@ -97,7 +97,8 @@
                             	<label class="label">Jenis Organisasi</label>
                                 <div class="control has-text-centered">
                                 	<label class="radio">
-                                		<input type="radio" name="typeOrganization" value="Kerajaan" data-parsley-required data-parsley-required-message="Ruang ini wajib diisi"> Kerajaan
+                                		<input type="radio" name="typeOrganization" value="Kerajaan" 
+                                		data-parsley-required data-parsley-required-message="Ruang ini wajib dipilih"> Kerajaan
 									</label>
 									<label class="radio">
 									    <input type="radio" name="typeOrganization" value="Swasta"> Swasta
@@ -125,7 +126,7 @@
                             <div class="field">
                             	<label class="label">Pastikan Kata Laluan</label>
                                 <div class="control">
-                                    <input id="pass2" class="input is-medium is-rounded" type="password" name="orgPassword" value="" placeholder="Masukkan Kata Laluan" 
+                                    <input id="pass2" class="input is-medium is-rounded" type="password" name="orgPassword" value="" placeholder="Masukkan Kata Laluan sekali lagi" 
                                     data-parsley-required data-parsley-required-message="Ruang ini wajib diisi" 
                                     data-parsley-equalto="#pass1" data-parsley-equalto-message="Kata laluan ini tidak sama dengan kata laluan diatas" 
                                     data-parsley-length="[3, 12]" data-parsley-length-message="Kata laluan anda perlu melebihi 3 dan tidak melebihi 12 huruf/digit">

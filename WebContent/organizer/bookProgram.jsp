@@ -154,7 +154,7 @@
 				                                </div>
 			                        		</div>
 			                            </div>
-			                            <br/>
+			                            <h1 class="title"></h1>
 			                            <div class="content" id="num" style="display:none">
 			                            	<div class="field">
 				                        		<label class="label">Jumlah Peserta</label>
