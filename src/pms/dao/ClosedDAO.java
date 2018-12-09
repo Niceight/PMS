@@ -98,41 +98,79 @@ public class ClosedDAO {
 		int numParticipant = bean.getNumParticipant();
 		
 		try {
-			currentCon = ConnectionManager.getConnection();
+			if(orgID == null) {
+				currentCon = ConnectionManager.getConnection();
+				
+				String searchQuery = "UPDATE PROGRAM SET PROGNAME= '" + progName + "', "
+						+ "PROGSTARTDATE= TO_DATE('" + progStartDate + "','YYYY/MM/DD'), "
+						+ "PROGENDDATE= TO_DATE('" + progEndDate + "','YYYY/MM/DD') , "
+						+ "PROGSTARTTIME= TO_DATE('" + progStartTime + "','HH24-MI-SS'), "
+						+ "PROGENDTIME= TO_DATE('" + progEndTime + "','HH24-MI-SS'), "
+						+ "PROGTYPE='" + progType 
+						+ "', VENUEID='" + venueID 
+						+ "', ADMID='" + admID 
+						+ "' WHERE PROGID= '" + progID + "'";
+				stmt = currentCon.createStatement();
+		        stmt.executeUpdate(searchQuery);
+				
+		    	ps=currentCon.prepareStatement("select * from CLOSED where PROGID=?");
+	  			ps.setString(1, progID);
+	  			ResultSet rs = ps.executeQuery();
+	  			
+	  			if (rs.next()) {
+	  				String searchQuery1 = "UPDATE CLOSED SET NUMPARTICIPANT= " + numParticipant + " WHERE PROGID= '" + progID + "'";
+	  				stmt = currentCon.createStatement();
+	  				stmt.executeUpdate(searchQuery1);
+	  			}
+	  			else {
+	  				stmt = currentCon.createStatement();
+	  				String q = "select PROGID from PROGRAM where PROGID = '" + progID + "'";
+	  		  	  	ResultSet rs1 = stmt.executeQuery(q);
+	  		  	  	while (rs1.next()) {
+	  			  	  	ps1=currentCon.prepareStatement("insert into CLOSED (PROGID, NUMPARTICIPANT)values(?,?)");
+	  			  	  	ps1.setString(1,progID);
+	  			  	  	ps1.setInt(2,numParticipant);
+	  					ps1.executeUpdate();
+	  		  	  	}	
+	  			}
+			}
+			else {
+				currentCon = ConnectionManager.getConnection();
+				
+				String searchQuery = "UPDATE PROGRAM SET PROGNAME= '" + progName + "', "
+						+ "PROGSTARTDATE= TO_DATE('" + progStartDate + "','YYYY/MM/DD'), "
+						+ "PROGENDDATE= TO_DATE('" + progEndDate + "','YYYY/MM/DD') , "
+						+ "PROGSTARTTIME= TO_DATE('" + progStartTime + "','HH24-MI-SS'), "
+						+ "PROGENDTIME= TO_DATE('" + progEndTime + "','HH24-MI-SS'), "
+						+ "PROGTYPE='" + progType 
+						+ "', ORGID='" + orgID 
+						+ "', VENUEID='" + venueID 
+						+ "' WHERE PROGID= '" + progID + "'";
+				stmt = currentCon.createStatement();
+		        stmt.executeUpdate(searchQuery);
+				
+		    	ps=currentCon.prepareStatement("select * from CLOSED where PROGID=?");
+	  			ps.setString(1, progID);
+	  			ResultSet rs = ps.executeQuery();
+	  			
+	  			if (rs.next()) {
+	  				String searchQuery1 = "UPDATE CLOSED SET NUMPARTICIPANT= " + numParticipant + " WHERE PROGID= '" + progID + "'";
+	  				stmt = currentCon.createStatement();
+	  				stmt.executeUpdate(searchQuery1);
+	  			}
+	  			else {
+	  				stmt = currentCon.createStatement();
+	  				String q = "select PROGID from PROGRAM where PROGID = '" + progID + "'";
+	  		  	  	ResultSet rs1 = stmt.executeQuery(q);
+	  		  	  	while (rs1.next()) {
+	  			  	  	ps1=currentCon.prepareStatement("insert into CLOSED (PROGID, NUMPARTICIPANT)values(?,?)");
+	  			  	  	ps1.setString(1,progID);
+	  			  	  	ps1.setInt(2,numParticipant);
+	  					ps1.executeUpdate();
+	  		  	  	}	
+	  			}
+			}
 			
-			String searchQuery = "UPDATE PROGRAM SET PROGNAME= '" + progName + "', "
-					+ "PROGSTARTDATE= TO_DATE('" + progStartDate + "','YYYY/MM/DD'), "
-					+ "PROGENDDATE= TO_DATE('" + progEndDate + "','YYYY/MM/DD') , "
-					+ "PROGSTARTTIME= TO_DATE('" + progStartTime + "','HH24-MI-SS'), "
-					+ "PROGENDTIME= TO_DATE('" + progEndTime + "','HH24-MI-SS'), "
-					+ "PROGTYPE='" + progType 
-					+ "', ORGID='" + orgID 
-					+ "', VENUEID='" + venueID 
-					+ "', ADMID='" + admID 
-					+ "' WHERE PROGID= '" + progID + "'";
-			stmt = currentCon.createStatement();
-	        stmt.executeUpdate(searchQuery);
-			
-	    	ps=currentCon.prepareStatement("select * from CLOSED where PROGID=?");
-  			ps.setString(1, progID);
-  			ResultSet rs = ps.executeQuery();
-  			
-  			if (rs.next()) {
-  				String searchQuery1 = "UPDATE CLOSED SET NUMPARTICIPANT= " + numParticipant + " WHERE PROGID= '" + progID + "'";
-  				stmt = currentCon.createStatement();
-  				stmt.executeUpdate(searchQuery1);
-  			}
-  			else {
-  				stmt = currentCon.createStatement();
-  				String q = "select PROGID from PROGRAM where PROGID = '" + progID + "'";
-  		  	  	ResultSet rs1 = stmt.executeQuery(q);
-  		  	  	while (rs1.next()) {
-  			  	  	ps1=currentCon.prepareStatement("insert into CLOSED (PROGID, NUMPARTICIPANT)values(?,?)");
-  			  	  	ps1.setString(1,progID);
-  			  	  	ps1.setInt(2,numParticipant);
-  					ps1.executeUpdate();
-  		  	  	}	
-  			}
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    }
